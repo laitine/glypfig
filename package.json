@@ -1,0 +1,9 @@
+{
+  "name": "@laitine/glypfig",
+  "version": "0.0.0",
+  "description": "Icon library workflow for Figma",
+  "main": "index.js",
+  "repository": "https://github.com/laitine/glypfig.git",
+  "author": "laitine <laitine@iki.fi>",
+  "license": "Apache 2.0"
+}

@@ -1,2 +1,3 @@
-# glypfig
-Icon library workflow for Figma
+# Glypfig
+
+The icon library workflow for Figma.
