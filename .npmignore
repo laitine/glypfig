@@ -2,6 +2,7 @@
 .nvmrc
 .storybook
 stories
+storybook-static
 icon-library
 .eslintrc.json
 tsconfig.json
