@@ -1,9 +1,69 @@
 {
-  "name": "@laitine/glypfig",
-  "version": "0.0.0",
+  "name": "glypfig",
+  "version": "1.0.0",
   "description": "Icon library workflow for Figma",
-  "main": "index.js",
+  "keywords": [
+    "icon",
+    "icons",
+    "glyphs",
+    "icon library",
+    "figma",
+    "scripts",
+    "design systems",
+    "jpg",
+    "png",
+    "pdf",
+    "svg",
+    "react"
+  ],
+  "main": "./src/index.js",
   "repository": "https://github.com/laitine/glypfig.git",
   "author": "laitine <laitine@iki.fi>",
-  "license": "Apache 2.0"
+  "license": "Apache-2.0",
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/Glypfig"
+  },
+  "type": "module",
+  "bin": "./src/index.js",
+  "scripts": {
+    "lint": "eslint --fix ./src/*.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "engines": {
+    "node": ">=18.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-webpack4": "^6.5.16",
+    "@storybook/manager-webpack4": "^6.5.16",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
+    "@svgr/webpack": "^6.5.1",
+    "@types/react": "^18.0.27",
+    "babel-loader": "^8.3.0",
+    "eslint": ">=5.16.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-storybook": "^0.6.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook-css-modules": "^1.0.8"
+  },
+  "dependencies": {
+    "axios": "^1.2.5",
+    "axios-retry": "^3.4.0",
+    "camelcase": "^7.0.1",
+    "cheerio": "^1.0.0-rc.12",
+    "eta": "^2.0.0",
+    "imagemin": "^8.0.1",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^10.0.1",
+    "imagemin-zopfli": "^7.0.0"
+  }
 }

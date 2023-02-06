@@ -1,0 +1,33 @@
+.icon {
+    --icon-size: 100%;
+    display: inline-block;
+    background-color: transparent;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: auto;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: auto;
+}
+
+.xs {
+    --icon-size: 1rem;
+}
+
+.s {
+    --icon-size: 1.5rem;
+}
+
+.m {
+    --icon-size: 2rem;
+}
+
+.l {
+    --icon-size: 3rem;
+}
+
+.xl {
+    --icon-size: 4rem;
+}

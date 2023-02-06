@@ -1,0 +1,17 @@
+.component-grid {
+    display: grid;
+    width: 400px;
+    height: 300px;
+    grid-template-columns: repeat(5, 64px);
+    grid-template-rows: repeat(7, 64px);
+    grid-gap: 10px;
+}
+
+.icon-grid {
+    display: grid;
+    width: 400px;
+    height: 300px;
+    grid-template-columns: repeat(7, 64px);
+    grid-template-rows: repeat(1, 64px);
+    grid-gap: 10px;
+}
