@@ -6,7 +6,7 @@ The icon library workflow for Figma.
 
 ![Glypfig icon library creator](header.png)
 
-Picks up your existing icons from Figma and outputs them ready for production. Currently supported export formats include JPG, PNG, SVG, PDF or React. Can also optimize image assets and build UI components according to an editable template.
+Picks up your existing icons from Figma and outputs them ready for production. Currently supported export formats include JPG, PDF, PNG, SVG and React. Can also optimize image assets and build UI components according to an editable template.
 
 ## Prerequisites
 
@@ -37,7 +37,7 @@ For best results always have your icon component's main layer in Figma boxed wit
 2. Run with your preferred configuration. See all the possible options below.
 
     ```shell
-    glypfig --apikey <figma-api-key> --filekey <figma-file-key> --nodeid <icon-frame's-node-id>
+    glypfig --apikey <figma-api-key> --filekey <figma-file-key> --nodeid <icon-frame-node-id>
     ```
 
 ### configuration
