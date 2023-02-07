@@ -44,8 +44,9 @@ jobs:
           API_KEY: ${{ secrets.FIGMA_API_KEY }}
           FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
           NODE_ID: ${{ secrets.FIGMA_NODE_ID }}
-      - name: Build Storybook
+      - name: Set up Node.js for Storybook build
         run: export NODE_OPTIONS=—openssl-legacy-provider
+      - name: Build Storybook
         run: yarn build-storybook
       - name: Setup Pages
         uses: actions/configure-pages@v3
