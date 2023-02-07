@@ -44,10 +44,10 @@ jobs:
           API_KEY: ${{ secrets.FIGMA_API_KEY }}
           FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
           NODE_ID: ${{ secrets.FIGMA_NODE_ID }}
-      - name: Setup Node.js for Storybook build
-        run: export NODE_OPTIONS=--openssl-legacy-provider
       - name: Build Storybook
         run: yarn build-storybook
+        env:
+          NODE_OPTIONS: "--openssl-legacy-provider"
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload Storybook directory
