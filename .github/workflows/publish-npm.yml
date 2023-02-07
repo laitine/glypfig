@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v3.6.0
         with:
           node-version-file: .nvmrc
-          registry-url: "https://registry.npmjs.org"
+          registry-url: https://registry.npmjs.org
           always-auth: true
       - run: yarn install --frozen-lockfile
       - run: yarn publish
@@ -26,9 +26,6 @@ jobs:
 
   publish-github:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -37,10 +34,8 @@ jobs:
         uses: actions/setup-node@v3.6.0
         with:
           node-version-file: .nvmrc
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: https://npm.pkg.github.com
           always-auth: true
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: yarn install --frozen-lockfile
       - run: yarn publish
         env:
