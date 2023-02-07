@@ -1,6 +1,6 @@
 {
   "name": "glypfig",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Icon library workflow for Figma",
   "keywords": [
     "icon",
@@ -31,7 +31,7 @@
     "url": "https://www.patreon.com/Glypfig"
   },
   "type": "module",
-  "bin":{
+  "bin": {
     "glypfig": "./src/index.js"
   },
   "scripts": {
