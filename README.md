@@ -1,6 +1,6 @@
 # Glypfig
 
-[![NPM](https://img.shields.io/npm/v/glypfig/latest?logo=npm)](https://www.npmjs.com/package/glypfig)
+[![NPM](https://img.shields.io/npm/v/glypfig/latest?style=flat-square&logo=npm)](https://www.npmjs.com/package/glypfig)
 [![Patreon](https://img.shields.io/badge/Patreon-donate-blue?style=flat-square&logo=patreon)](https://www.patreon.com/Glypfig)
 
 The icon library workflow for Figma.
