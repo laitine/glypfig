@@ -16,6 +16,9 @@
     "svg",
     "react"
   ],
+  "bugs": {
+    "url": "https://github.com/laitine/glypfig/issues"
+  },
   "main": "./src/index.js",
   "repository": {
     "type": "git",
@@ -28,7 +31,9 @@
     "url": "https://www.patreon.com/Glypfig"
   },
   "type": "module",
-  "bin": "./src/index.js",
+  "bin":{
+    "glypfig": "./src/index.js"
+  },
   "scripts": {
     "lint": "eslint --fix ./src/*.js",
     "storybook": "start-storybook -p 6006",
