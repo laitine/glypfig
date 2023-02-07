@@ -18,7 +18,6 @@ jobs:
         with:
           node-version-file: .nvmrc
           registry-url: https://registry.npmjs.org
-          always-auth: true
       - run: yarn install --frozen-lockfile
       - run: yarn publish
         env:
@@ -34,9 +33,12 @@ jobs:
         uses: actions/setup-node@v3.6.0
         with:
           node-version-file: .nvmrc
-          registry-url: https://npm.pkg.github.com
+          cache: yarn
           always-auth: true
+          registry-url: https://npm.pkg.github.com
       - run: yarn install --frozen-lockfile
-      - run: yarn publish
+      - name: Publish to Github registry
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: yarn publish
+
