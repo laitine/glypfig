@@ -17,7 +17,10 @@
     "react"
   ],
   "main": "./src/index.js",
-  "repository": "https://github.com/laitine/glypfig.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laitine/glypfig.git"
+  },
   "author": "laitine <laitine@iki.fi>",
   "license": "Apache-2.0",
   "funding": {

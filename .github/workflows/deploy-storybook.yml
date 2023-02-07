@@ -35,7 +35,7 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - name: Install NPM dependencies
-        run: yarn
+        run: yarn install --frozen-lockfile
       - name: Install Glypfig
         run: yarn add glypfig
       - name: Run Glypfig
