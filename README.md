@@ -1,12 +1,15 @@
 # Glypfig
 
-[![Patreon](https://img.shields.io/badge/patreon-donate-blue.svg)](https://www.patreon.com/Glypfig)
+[![NPM](https://img.shields.io/npm/v/glypfig/latest?logo=npm)](https://www.npmjs.com/package/glypfig)
+[![Patreon](https://img.shields.io/badge/Patreon-donate-blue?style=flat-square&logo=patreon)](https://www.patreon.com/Glypfig)
 
 The icon library workflow for Figma.
 
 ![Glypfig icon library creator](header.png)
 
 Picks up your existing icons from Figma and outputs them ready for production. Currently supported export formats include JPG, PDF, PNG, SVG and React. Can also optimize image assets and build UI components according to an editable template.
+
+[Find an example with all formats here](https://laitine.github.io/glypfig/)
 
 ## Prerequisites
 
@@ -37,7 +40,7 @@ For best results always have your icon component's main layer in Figma boxed wit
 2. Run with your preferred configuration. See all the possible options below.
 
     ```shell
-    glypfig --apikey <figma-api-key> --filekey <figma-file-key> --nodeid <icon-frame-node-id>
+    npx glypfig --apikey <figma-api-key> --filekey <figma-file-key> --nodeid <icon-frame-node-id>
     ```
 
 ### configuration
