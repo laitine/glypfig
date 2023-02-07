@@ -18,8 +18,10 @@ jobs:
         with:
           node-version-file: .nvmrc
           registry-url: https://registry.npmjs.org
-      - run: yarn install --frozen-lockfile
-      - run: yarn publish
+      - name: Install repo dependencies
+        run: yarn install --frozen-lockfile
+      - name: Publish to NPM registry
+        run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
 
@@ -28,14 +30,13 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      # Setup .npmrc file to publish to GitHub Packages
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.6.0
         with:
           node-version-file: .nvmrc
-          cache: yarn
           registry-url: https://npm.pkg.github.com
-      - run: yarn install --frozen-lockfile
+      - name: Install repo dependencies
+        run: yarn install --frozen-lockfile
       - name: Publish to Github registry
         run: yarn publish --registry=https://npm.pkg.github.com
         env:
