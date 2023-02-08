@@ -1,4 +1,4 @@
-# Workflow for publishing NPM package to NPM registry and GitHub Packages when a release is created
+# Workflow for publishing NPM package to NPM registry
 name: Publish NPM package
 
 on:
@@ -24,24 +24,3 @@ jobs:
         run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-
-  publish-github:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version-file: .nvmrc
-          registry-url: https://npm.pkg.github.com
-          scope: '@laitine'
-      - name: Install repo dependencies
-        run: yarn install --frozen-lockfile
-      - name: Publish to Github registry
-        run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
