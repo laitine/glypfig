@@ -81,6 +81,25 @@ const writeComponentToFile = async (
   }
 };
 
+const generateComponentsIndex = async (
+    iconNodesData, outputDir, fileFormat, framework, isLogging) => {
+  if (isLogging) {
+    console.log('Generating components index file...');
+  }
+  const indexFilename = `index.${fileFormat.slice(0, -1)}`;
+
+  const indexPath = join(`${outputDir}/${framework}`, indexFilename);
+
+  const indexData = iconNodesData.map((nodeItem) => {
+    return `export {${nodeItem.componentName}} from ` +
+        `'./${nodeItem.componentName}';`;
+  })
+      .join('\n')
+      .concat('\n');
+
+  await writeComponentToFile(indexPath, indexData, indexFilename);
+};
+
 const generateReactComponents = (
     iconNodesData, outputDir, templateFormat, templatePath, isLogging) => {
   if (isLogging) {
@@ -128,4 +147,7 @@ const generateReactComponents = (
   );
 };
 
-export {generateReactComponents};
+export {
+  generateReactComponents,
+  generateComponentsIndex,
+};

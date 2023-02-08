@@ -113,6 +113,8 @@ const main = async () => {
   if (isReact) {
     iconNodeData = await uiComponentBuilder.generateReactComponents(
         iconNodeData, outputPath, templateFormat, templatePath, isLogging);
+    await uiComponentBuilder.generateComponentsIndex(
+        iconNodeData, outputPath, templateFormat, 'react', isLogging);
   }
 
   if (isLogging) {
