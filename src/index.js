@@ -34,7 +34,7 @@ const options = {
   'output': {
     type: 'string',
     short: 'o',
-    default: '../icon-library',
+    default: './icon-library',
   },
   'silent': {
     type: 'boolean',
