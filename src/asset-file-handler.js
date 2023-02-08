@@ -4,20 +4,19 @@ import imageminJpegtran from 'imagemin-jpegtran';
 import imageminOptipng from 'imagemin-optipng';
 import imageminSvgo from 'imagemin-svgo';
 import imageminZopfli from 'imagemin-zopfli';
-import {mkdirSync} from 'node:fs';
-import {writeFile} from 'node:fs/promises';
+import {mkdir, writeFile} from 'node:fs/promises';
 
 import {errorTxt} from '../src/logger.js';
 
 // Write Asset files to disk
-const writeAssetDataToFile = (iconsData, outputDir) => {
-  mkdirSync(outputDir, {recursive: true});
+const writeAssetDataToFile = async (iconsData, outputDir) => {
+  await mkdir(outputDir, {recursive: true});
 
   return Promise.all(
       iconsData.map(async (nodeItem) => {
         if (typeof nodeItem.jpg !== 'undefined') {
           try {
-            mkdirSync(join(outputDir, 'jpg'), {recursive: true});
+            await mkdir(join(outputDir, 'jpg'), {recursive: true});
 
             const filePath = outputDir + '/jpg/' + nodeItem.name + '.jpg';
             await writeFile(filePath,
@@ -33,7 +32,7 @@ const writeAssetDataToFile = (iconsData, outputDir) => {
 
         if (typeof nodeItem.png !== 'undefined') {
           try {
-            mkdirSync(join(outputDir, 'png'), {recursive: true});
+            await mkdir(join(outputDir, 'png'), {recursive: true});
 
             const filePath = outputDir + '/png/' + nodeItem.name + '.png';
             await writeFile(filePath,
@@ -47,24 +46,9 @@ const writeAssetDataToFile = (iconsData, outputDir) => {
           }
         }
 
-        if (typeof nodeItem.svg !== 'undefined') {
-          try {
-            mkdirSync(join(outputDir, 'svg'), {recursive: true});
-
-            const filePath = outputDir + '/svg/' + nodeItem.name + '.svg';
-            await writeFile(filePath, nodeItem.svg, {encoding: 'utf8'});
-            nodeItem.svgFilePath = filePath;
-          } catch (err) {
-            console.log(
-                errorTxt(
-                    `Failed writing ${nodeItem.name}.svg to disk: ${err}`));
-            process.exit(9);
-          }
-        }
-
         if (typeof nodeItem.pdf !== 'undefined') {
           try {
-            mkdirSync(join(outputDir, 'pdf'), {recursive: true});
+            await mkdir(join(outputDir, 'pdf'), {recursive: true});
 
             const filePath = outputDir + '/pdf/' + nodeItem.name + '.pdf';
             await writeFile(filePath, nodeItem.pdf, {encoding: 'utf8'});
@@ -73,6 +57,21 @@ const writeAssetDataToFile = (iconsData, outputDir) => {
             console.log(
                 errorTxt(
                     `Failed writing ${nodeItem.name}.pdf to disk: ${err}`));
+            process.exit(9);
+          }
+        }
+
+        if (typeof nodeItem.svg !== 'undefined') {
+          try {
+            await mkdir(join(outputDir, 'svg'), {recursive: true});
+
+            const filePath = outputDir + '/svg/' + nodeItem.name + '.svg';
+            await writeFile(filePath, nodeItem.svg, {encoding: 'utf8'});
+            nodeItem.svgFilePath = filePath;
+          } catch (err) {
+            console.log(
+                errorTxt(
+                    `Failed writing ${nodeItem.name}.svg to disk: ${err}`));
             process.exit(9);
           }
         }

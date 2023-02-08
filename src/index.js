@@ -55,8 +55,13 @@ const options = {
     type: 'string',
     short: 'h',
   },
+  'license': {
+    type: 'string',
+    short: 'l',
+  },
 };
-const {values} = parseArgs({options});
+
+const {values} = parseArgs({options, strict: false});
 const argValues = values;
 
 const outputFormats = argValues.format.split(',');
@@ -72,6 +77,8 @@ const isOptimized = typeof argValues.optimize !== 'undefined' &&
 const templateFormat = argValues.template;
 
 const templatePath = argValues.path;
+
+const isLicensed = argValues.license;
 
 const main = async () => {
   // Handle parameters
@@ -115,6 +122,10 @@ const main = async () => {
         iconNodeData, outputPath, templateFormat, templatePath, isLogging);
     await uiComponentBuilder.generateComponentsIndex(
         iconNodeData, outputPath, templateFormat, 'react', isLogging);
+  }
+
+  if (isLicensed) {
+    await uiComponentBuilder.createLicense(isLicensed, outputPath, isLogging);
   }
 
   if (isLogging) {

@@ -56,6 +56,7 @@ For best results always have your icon component's main layer in Figma boxed wit
 | Optimize files   | optimize, p | boolean | false                     | true or false                                     |
 | Template format  | template, t | string  | jsx                       | jsx or tsx                                        |
 | Template path    | path, h     | string  | ./templates/react-jsx.eta | e.g. ./the-path/to/your-template-tsx.eta          |
+| License path     | license, l  | string  | ./templates/LICENSE.txt   | e.g. ./the-path/to/your-license-file              |
 
 ## More
 
