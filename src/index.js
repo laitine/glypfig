@@ -4,8 +4,7 @@
  * Glypfig
  ******************************************************/
 
-import {dirname, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
+import {resolve} from 'node:path';
 import {parseArgs} from 'node:util';
 
 import * as assetFileHandler from './asset-file-handler.js';
@@ -68,8 +67,7 @@ const outputFormats = argValues.format.split(',');
 
 const isLogging = typeof argValues.silent !== 'undefined' && !argValues.silent;
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const outputPath = resolve(__dirname, argValues.output);
+const outputPath = resolve(process.cwd(), argValues.output);
 
 const isOptimized = typeof argValues.optimize !== 'undefined' &&
   argValues.optimize;
