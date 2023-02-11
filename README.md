@@ -46,18 +46,20 @@ For best results always have your icon component's main layer in Figma boxed wit
 
 ### configuration
 
-| Parameter        |  Flag       | Value   | Default                   | Options                                           |
-| ---------------- | ----------- | ------- | --------------------------|-------------------------------------------------- |
-| Figma API Key    | apikey, a   | string  | None                      | Figma: Settings/Account/Personal access tokens    |
-| File key         | filekey, k  | string  | None                      | figma.com/file/{figma-file-key}/Glypfig           |
-| Node ID          | nodeid, n   | string  | None                      | figma.com/...?node-id=0%3A1 URL decoded to 0:1    |
-| Output format    | format, f   | string  | png,svg,react             | jpg, png, svg, pdf and react                      |
-| Output path      | output, o   | string  | icon-library              | e.g. ./the-path/to/your-icons                     |
-| Silent logging   | silent, s   | boolean | false                     | true or false                                     |
-| Optimize files   | optimize, p | boolean | false                     | true or false                                     |
-| Template format  | template, t | string  | jsx                       | jsx or tsx                                        |
-| Template path    | path, h     | string  | ./templates/react-jsx.eta | e.g. ./the-path/to/your-template-tsx.eta          |
-| License path     | license, l  | string  | ./templates/LICENSE.txt   | e.g. ./the-path/to/your-license-file              |
+| Parameter       |  Flag         | Value   | Default                   | Options                                           |
+| --------------- | ------------- | ------- | --------------------------|-------------------------------------------------- |
+| Figma API Key   | apikey, a     | string  | None                      | Figma: Settings/Account/Personal access tokens    |
+| File key        | filekey, k    | string  | None                      | figma.com/file/{figma-file-key}/Glypfig           |
+| Node ID         | nodeid, n     | string  | None                      | figma.com/...?node-id=0%3A1 URL decoded to 0:1    |
+| Output format   | format, f     | string  | png,svg,react             | jpg, png, svg, pdf and react                      |
+| Output path     | output, o     | string  | icon-library              | e.g. ./the-path/to/your-icons                     |
+| Silent logging  | silent, s     | boolean | false                     | true or false                                     |
+| Optimize files  | optimize, p   | boolean | false                     | true or false                                     |
+| Template format | template, t   | string  | jsx                       | jsx or tsx                                        |
+| Template path   | path, h       | string  | ./templates/react-jsx.eta | e.g. ./the-path/to/your-template-tsx.eta          |
+| License path    | license, l    | string  | ./templates/LICENSE.txt   | e.g. ./the-path/to/your-license-file              |
+| JPG image scale | jpgscale, b   | string  | None                      | Scale of exported image 0.01 - 4                  |
+| PNG image scale | pngscale, c   | string  | None                      | Scale of exported image 0.01 - 4                  |
 
 ## More
 

@@ -126,7 +126,7 @@ const parseFileData = (response) => {
 };
 
 // Export file assets from Figma as files
-const exportFigmaNodesAsFiles = async (iconsDataWithIds, format) => {
+const exportFigmaNodesAsFiles = async (iconsDataWithIds, format, scale) => {
   if (isLogging) {
     console.log(`Exporting ${format} assets as files from Figma...`);
   }
@@ -134,7 +134,7 @@ const exportFigmaNodesAsFiles = async (iconsDataWithIds, format) => {
   const iconDataIds = iconsDataWithIds.map((item) => item.id);
   const iconDataIdsParams = iconDataIds.join(',');
   const imageOptions = {
-    scale: 1,
+    scale: scale ? scale : 1,
     format: format,
   };
 
@@ -173,10 +173,12 @@ const exportFigmaNodesAsFiles = async (iconsDataWithIds, format) => {
 };
 
 // Combine Node IDs with assets file URLs
-const combineNodeIDsWithAssetFileURLs = async (iconNodes, formats) => {
+const combineNodeIDsWithAssetFileURLs = async (iconNodes, formats, scales) => {
   for (const format of formats) {
+    const scale = scales[format + 'Scale'];
+
     const exportedIconFileURLs = await exportFigmaNodesAsFiles(iconNodes,
-        format);
+        format, scale);
     for (const nodeURL in exportedIconFileURLs) {
       if (Object.prototype.hasOwnProperty.call(exportedIconFileURLs, nodeURL)) {
         const idx = iconNodes.findIndex(
