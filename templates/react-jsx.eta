@@ -1,18 +1,26 @@
 import React from 'react';
 import styles from  '../../templates/Icon.module.css';
 
-function <%= it.componentName %>(props) {
+function <%= it.componentName %>({
+    ariaLabel = '<%= it.iconName %>',
+    ariaLabelledby,
+    ariaHidden = true,
+    className = '',
+    color,
+    size = 's',
+    style = {}
+  }) {
   return (
     <svg
       className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
       role="img"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="<%= it.componentSVGattributes.viewBox %>"
-      aria-label={props.ariaLabel}
-      aria-labelledby={props.ariaLabelledby}
-      aria-hidden={props.ariaHidden}
-      color={props.color}
-      style={props.style}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledby}
+      aria-hidden={ariaHidden}
+      color={color}
+      style={style}
     >
       <%= it.componentSVGContents %>
     </svg>

@@ -81,10 +81,11 @@ const writeComponentToFile = async (
 
 const generateComponentsIndex = async (
     iconNodesData, outputDir, fileFormat, framework, isLogging) => {
-  if (isLogging) {
-    console.log('Generating components index file...');
-  }
   const indexFilename = `index.${fileFormat.slice(0, -1)}`;
+
+  if (isLogging) {
+    console.log(`Generating components ${indexFilename} file...`);
+  }
 
   const indexPath = join(`${outputDir}/${framework}`, indexFilename);
 

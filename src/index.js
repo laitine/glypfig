@@ -80,7 +80,7 @@ const outputPath = resolve(process.cwd(), argValues.output);
 const isOptimized = typeof argValues.optimize !== 'undefined' &&
   argValues.optimize;
 
-const templateFormat = argValues.template;
+const templateFormats = argValues.template.split(',');
 
 const templatePath = argValues.path;
 
@@ -136,10 +136,13 @@ const main = async () => {
   }
 
   if (isReact) {
-    iconNodeData = await uiComponentBuilder.generateReactComponents(
-        iconNodeData, outputPath, templateFormat, templatePath, isLogging);
-    await uiComponentBuilder.generateComponentsIndex(
-        iconNodeData, outputPath, templateFormat, 'react', isLogging);
+    for (const templateFormat of templateFormats) {
+      iconNodeData = await uiComponentBuilder.generateReactComponents(
+          iconNodeData, outputPath, templateFormat, templatePath, isLogging);
+
+      await uiComponentBuilder.generateComponentsIndex(
+          iconNodeData, outputPath, templateFormat, 'react', isLogging);
+    }
   }
 
   if (typeof licensePath !== 'undefined') {

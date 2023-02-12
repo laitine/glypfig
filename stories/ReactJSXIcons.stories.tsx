@@ -1,12 +1,12 @@
 import React from 'react';
 
-import {IconCompany} from '../icon-library/react/IconCompany';
-import {IconEntrepreneur} from '../icon-library/react/IconEntrepreneur';
-import {IconFamily} from '../icon-library/react/IconFamily';
-import {IconMover} from '../icon-library/react/IconMover';
-import {IconSenior} from '../icon-library/react/IconSenior';
-import {IconTraveler} from '../icon-library/react/IconTraveler';
-import {IconYouth} from '../icon-library/react/IconYouth';
+import IconCompany from '../icon-library/react/IconCompany.jsx';
+import IconEntrepreneur from '../icon-library/react/IconEntrepreneur.jsx';
+import IconFamily from '../icon-library/react/IconFamily.jsx';
+import IconMover from '../icon-library/react/IconMover.jsx';
+import IconSenior from '../icon-library/react/IconSenior.jsx';
+import IconTraveler from '../icon-library/react/IconTraveler.jsx';
+import IconYouth from '../icon-library/react/IconYouth.jsx';
 
 import './icon-style.css';
 
@@ -38,8 +38,8 @@ export default {
   },
 };
 
-export const TSX = ({...args}) => (
-  <div className="component-grid">
+export const JSX = ({...args}) => (
+  <div className="component-grid" data-format="jsx">
     <IconCompany size="xs" {...args} />
     <IconCompany size="s" {...args} />
     <IconCompany size="m" {...args} />
