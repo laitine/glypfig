@@ -68,7 +68,7 @@ const options = {
   },
 };
 
-const {values} = parseArgs({options, strict: false});
+const {values} = parseArgs({options});
 const argValues = values;
 
 const outputFormats = argValues.format.split(',');
@@ -84,7 +84,7 @@ const templateFormat = argValues.template;
 
 const templatePath = argValues.path;
 
-const isLicensed = argValues.license;
+const licensePath = argValues.license;
 
 const jpgScale = argValues.jpgscale;
 
@@ -142,8 +142,8 @@ const main = async () => {
         iconNodeData, outputPath, templateFormat, 'react', isLogging);
   }
 
-  if (isLicensed) {
-    await uiComponentBuilder.createLicense(isLicensed, outputPath, isLogging);
+  if (typeof licensePath !== 'undefined') {
+    await assetFileHandler.createLicense(licensePath, outputPath, isLogging);
   }
 
   if (isLogging) {

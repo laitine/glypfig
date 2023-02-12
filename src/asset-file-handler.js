@@ -1,12 +1,17 @@
-import {join} from 'node:path';
 import imagemin from 'imagemin';
 import imageminJpegtran from 'imagemin-jpegtran';
 import imageminOptipng from 'imagemin-optipng';
 import imageminSvgo from 'imagemin-svgo';
 import imageminZopfli from 'imagemin-zopfli';
-import {mkdir, writeFile} from 'node:fs/promises';
+import {basename, join, resolve} from 'node:path';
+import {copyFile, mkdir, writeFile} from 'node:fs/promises';
 
 import {errorTxt} from '../src/logger.js';
+
+const CWD = process.cwd();
+const TEMPLATES_DIR = join(CWD, './templates');
+const LICENSE_FILENAME = 'LICENSE.txt';
+const DEFAULT_LICENSE_PATH = join(TEMPLATES_DIR, LICENSE_FILENAME);
 
 // Write Asset files to disk
 const writeAssetDataToFile = async (iconsData, outputDir) => {
@@ -138,4 +143,28 @@ const optimizeAssetFiles = async (outputDir, isLogging) => {
   );
 };
 
-export {writeAssetDataToFile, optimizeAssetFiles};
+const createLicense = async (licensePath, outputDir, isLogging) => {
+  if (isLogging) {
+    console.log('Creating license file...');
+  }
+
+  const licenseFilePath = licensePath === '' ?
+      DEFAULT_LICENSE_PATH : resolve(CWD, licensePath);
+  const licenseFilename = typeof licensePath === '' ?
+      LICENSE_FILENAME : basename(licenseFilePath);
+  const licenseOutputPath = join(outputDir, licenseFilename);
+
+  try {
+    await copyFile(licenseFilePath, licenseOutputPath);
+  } catch (err) {
+    console.log(
+        errorTxt(`Failed copying license file ${licenseFilename}: ${err}`));
+    process.exit(9);
+  }
+};
+
+export {
+  writeAssetDataToFile,
+  optimizeAssetFiles,
+  createLicense,
+};

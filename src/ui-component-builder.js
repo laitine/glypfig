@@ -1,18 +1,15 @@
 import camelcase from 'camelcase';
 import * as cheerio from 'cheerio';
 import * as eta from 'eta';
-import {copyFile, mkdir, readFile, writeFile} from 'node:fs/promises';
-import {basename, dirname, join, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
+import {mkdir, readFile, writeFile} from 'node:fs/promises';
+import {basename, join} from 'node:path';
 
 import {errorTxt} from './logger.js';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const TEMPLATES_DIR = join(__dirname, '../templates');
+const CWD = process.cwd();
+const TEMPLATES_DIR = join(CWD, './templates');
 const JSX_TEMPLATE_PATH = join(TEMPLATES_DIR, 'react-jsx.eta');
 const TSX_TEMPLATE_PATH = join(TEMPLATES_DIR, 'react-tsx.eta');
-const LICENSE_FILENAME = 'LICENSE.txt';
-const LICENSE_PATH = join(TEMPLATES_DIR, LICENSE_FILENAME);
 
 eta.configure({autoEscape: false});
 
@@ -101,24 +98,6 @@ const generateComponentsIndex = async (
   await writeComponentToFile(indexPath, indexData, indexFilename);
 };
 
-const createLicense = async (isLicensed, outputDir, isLogging) => {
-  if (isLogging) {
-    console.log('Creating license file...');
-  }
-
-  try {
-    const licensePath = typeof isLicensed === 'string' ?
-    resolve(__dirname, isLicensed) :
-    resolve(__dirname, LICENSE_PATH);
-    const licenseOutputPath = join(outputDir, LICENSE_FILENAME);
-
-    await copyFile(licensePath, licenseOutputPath);
-  } catch (err) {
-    console.log(errorTxt(`Failed copying license file: ${err}`));
-    process.exit(9);
-  }
-};
-
 const generateReactComponents = async (
     iconNodesData, outputDir, templateFormat, templatePath, isLogging) => {
   if (isLogging) {
@@ -169,5 +148,4 @@ const generateReactComponents = async (
 export {
   generateReactComponents,
   generateComponentsIndex,
-  createLicense,
 };
