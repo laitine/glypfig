@@ -4,17 +4,17 @@ import styles from  '../../templates/Icon.module.css';
 function <%= it.componentName %>(props) {
   return (
     <svg
-	  className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
-	  role="img"
-	  xmlns="http://www.w3.org/2000/svg"
-	  viewBox="<%= it.componentSVGattributes.viewBox %>"
-	  aria-label={props.ariaLabel}
-	  aria-labelledby={props.ariaLabelledby}
-	  aria-hidden={props.ariaHidden}
-	  color={props.color}
-	  style={props.style}
+      className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="<%= it.componentSVGattributes.viewBox %>"
+      aria-label={props.ariaLabel}
+      aria-labelledby={props.ariaLabelledby}
+      aria-hidden={props.ariaHidden}
+      color={props.color}
+      style={props.style}
     >
-      <%= it.componentSVG %>
+      <%= it.componentSVGContents %>
     </svg>
   );
 };

@@ -1,15 +1,31 @@
 {
     "env": {
+        "node": true,
         "browser": true,
         "es2021": true
     },
-    "extends": ["google", "plugin:storybook/recommended"],
+    "extends": [
+        "google",
+        "plugin:storybook/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended"
+    ],
     "overrides": [
+        {
+            "files": "./icon-library/react/*.{jsx,tsx}",
+            "rules": {
+                "max-len": "off"
+            }
+        }
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "rules": {
+        "require-jsdoc": 0
     }
 }
