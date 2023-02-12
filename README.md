@@ -8,7 +8,7 @@ The icon library workflow for Figma.
 
 ![Glypfig icon library creator](header.png)
 
-Picks up your existing icons from Figma and outputs them ready for production. Currently supported export formats include JPG, PDF, PNG, SVG and React. Can also optimize image assets and build UI components according to an editable template.
+Picks up your existing icons from Figma and outputs them ready for production. Currently supported export formats include JPG, PDF, PNG, SVG and React (with typescript support). Can also optimize image assets and builds UI components according to an editable template.
 
 [Find an example with all formats here](https://laitine.github.io/glypfig/)
 
@@ -18,7 +18,7 @@ Picks up your existing icons from Figma and outputs them ready for production. C
 * [Figma](https://www.figma.com/) project with a page that has a frame or similar container with icon components
 * Figma API key – Generate new personal access token at Settings -> Account -> Personal access tokens
 * File key – Your file's (with the icon components) key identifier e.g. figma.com/file/{figma-file-key}/Glypfig
-* Node ID – Your frame's [URL decoded](https://www.urldecoder.io/) node ID e.g. figma.com/...?node-id=0%3A1 (URL decoded to 0:1)
+* Node ID – Your frame's [URL decoded](https://www.urldecoder.io/) node ID e.g. figma.com/...?node-id=0%3A1 -> URL decoded to 0:1
 
 ### Figma notes
 
@@ -55,7 +55,7 @@ For best results always have your icon component's main layer in Figma boxed wit
 | Output path     | output, o      | string  | icon-library               | e.g. ./the-path/to/your-icons                                |
 | Silent logging  | silent, s      | boolean | false                      | true or false                                                |
 | Optimize files  | optimize, p    | boolean | false                      | true or false                                                |
-| Template format | template, t    | string  | jsx                        | jsx or tsx                                                   |
+| Template format | template, t    | string  | jsx                        | jsx and tsx                                                  |
 | Template path   | path, h        | string  | ./templates/react-jsx.eta  | e.g. ./the-path/to/your-template-tsx.eta                     |
 | License file    | license, l     | string  | ./templates/LICENSE.txt    | Pass empty for default, e.g. ./the-path/to/your-license-file |
 | JPG image scale | jpgscale, b    | string  | None                       | Scale of exported image 0.01 - 4                             |
