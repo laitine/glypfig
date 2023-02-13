@@ -1,15 +1,15 @@
 import React from 'react';
-import styles from  '../../templates/Icon.module.css';
+import styles from '../../templates/Icon.module.css';
 
 function <%= it.componentName %>({
-    ariaLabel = '<%= it.iconName %>',
-    ariaLabelledby,
-    ariaHidden = true,
-    className = '',
-    color,
-    size = 's',
-    style = {}
-  }) {
+  ariaLabel = '<%= it.iconName %>',
+  ariaLabelledby,
+  ariaHidden = true,
+  className = '',
+  color,
+  size = 's',
+  style = {},
+}) {
   return (
     <svg
       className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
@@ -25,6 +25,6 @@ function <%= it.componentName %>({
       <%= it.componentSVGContents %>
     </svg>
   );
-};
+}
 
 export default <%= it.componentName %>;

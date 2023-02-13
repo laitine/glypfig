@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from  '../../templates/Icon.module.css';
+import styles from '../../templates/Icon.module.css';
 
 interface IconProps {
   ariaLabel?: string;
@@ -30,7 +30,7 @@ export const <%= it.componentName %> = ({
     aria-hidden={ariaHidden}
     color={color}
     style={style}
-	>
+  >
     <%= it.componentSVGContents %>
-	</svg>
+  </svg>
 );

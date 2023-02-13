@@ -64,3 +64,5 @@ For best results always have your icon component's main layer in Figma boxed wit
 ## More
 
 [Support](https://www.patreon.com/Glypfig) this project
+
+[Eta templating engine](https://eta.js.org/)
