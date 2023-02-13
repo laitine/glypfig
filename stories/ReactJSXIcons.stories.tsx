@@ -17,24 +17,24 @@ export default {
       control: 'text',
     },
     style: {
-      control: 'object'
+      control: 'object',
     },
     ariaLabel: {
-      control: 'text'
+      control: 'text',
     },
     ariaLabelledby: {
-      control: 'text'
+      control: 'text',
     },
     ariaHidden: {
-      control: 'boolean'
+      control: 'boolean',
     },
     color: {
-      control: 'text'
+      control: 'text',
     },
     size: {
       control: 'select',
-      options: ['xs', 's', 'm', 'l', 'xl']
-    }
+      options: ['xs', 's', 'm', 'l', 'xl'],
+    },
   },
 };
 

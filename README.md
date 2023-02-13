@@ -6,7 +6,7 @@
 
 The icon library workflow for Figma.
 
-![Glypfig icon library creator](header.png)
+![Glypfig icon library creator](https://raw.githubusercontent.com/laitine/glypfig/main/header.png)
 
 Picks up your existing icons from Figma and outputs them ready for production. Currently supported export formats include JPG, PDF, PNG, SVG and React (with typescript support). Can also optimize image assets and builds UI components according to an editable template.
 

@@ -10,7 +10,7 @@ import IconYouth from '../icon-library/png/youth.png';
 
 import './icon-style.css';
 
-import { Meta } from '@storybook/react';
+import {Meta} from '@storybook/react';
 
 export default {
   title: 'Glypfig/Icons',
