@@ -2,7 +2,7 @@ import camelcase from 'camelcase';
 import * as cheerio from 'cheerio';
 import * as eta from 'eta';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
-import {basename, dirname, join} from 'node:path';
+import {basename, dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 import {errorTxt} from './logger.js';
@@ -115,7 +115,7 @@ const generateReactComponents = async (
     templatePath = iconComponentFormat === 'jsx' ?
      JSX_TEMPLATE_PATH : TSX_TEMPLATE_PATH;
   }
-  const iconComponentTemplatePath = templatePath;
+  const iconComponentTemplatePath = resolve(process.cwd(), templatePath);
 
   return Promise.all(
       iconNodesData.map(async (nodeItem) => {

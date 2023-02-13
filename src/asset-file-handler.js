@@ -150,7 +150,7 @@ const createLicense = async (licensePath, outputDir, isLogging) => {
   }
 
   const licenseFilePath = licensePath === '' ?
-      DEFAULT_LICENSE_PATH : resolve(__dirname, licensePath);
+      DEFAULT_LICENSE_PATH : resolve(process.cwd(), licensePath);
   const licenseFilename = typeof licensePath === '' ?
       LICENSE_FILENAME : basename(licenseFilePath);
   const licenseOutputPath = join(outputDir, licenseFilename);
