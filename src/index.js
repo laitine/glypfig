@@ -76,7 +76,7 @@ const options = {
 const {values} = parseArgs({options});
 const argValues = values;
 
-if (typeof argValues.help !== 'undefined') {
+if (typeof argValues.help !== 'undefined' && argValues.help) {
   await printManual();
   process.exit(1);
 }

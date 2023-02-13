@@ -2,6 +2,7 @@
 .github
 .nvmrc
 .storybook
+static
 stories
 storybook-static
 icon-library
