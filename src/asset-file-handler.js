@@ -3,13 +3,14 @@ import imageminJpegtran from 'imagemin-jpegtran';
 import imageminOptipng from 'imagemin-optipng';
 import imageminSvgo from 'imagemin-svgo';
 import imageminZopfli from 'imagemin-zopfli';
-import {basename, join, resolve} from 'node:path';
 import {copyFile, mkdir, writeFile} from 'node:fs/promises';
+import {basename, dirname, join, resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 import {errorTxt} from '../src/logger.js';
 
-const CWD = process.cwd();
-const TEMPLATES_DIR = join(CWD, './templates');
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const TEMPLATES_DIR = join(__dirname, '../templates');
 const LICENSE_FILENAME = 'LICENSE.txt';
 const DEFAULT_LICENSE_PATH = join(TEMPLATES_DIR, LICENSE_FILENAME);
 
@@ -149,7 +150,7 @@ const createLicense = async (licensePath, outputDir, isLogging) => {
   }
 
   const licenseFilePath = licensePath === '' ?
-      DEFAULT_LICENSE_PATH : resolve(CWD, licensePath);
+      DEFAULT_LICENSE_PATH : resolve(__dirname, licensePath);
   const licenseFilename = typeof licensePath === '' ?
       LICENSE_FILENAME : basename(licenseFilePath);
   const licenseOutputPath = join(outputDir, licenseFilename);

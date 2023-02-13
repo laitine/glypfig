@@ -2,12 +2,13 @@ import camelcase from 'camelcase';
 import * as cheerio from 'cheerio';
 import * as eta from 'eta';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
-import {basename, join} from 'node:path';
+import {basename, dirname, join} from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 import {errorTxt} from './logger.js';
 
-const CWD = process.cwd();
-const TEMPLATES_DIR = join(CWD, './templates');
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const TEMPLATES_DIR = join(__dirname, '../templates');
 const JSX_TEMPLATE_PATH = join(TEMPLATES_DIR, 'react-jsx.eta');
 const TSX_TEMPLATE_PATH = join(TEMPLATES_DIR, 'react-tsx.eta');
 
