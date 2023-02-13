@@ -9,6 +9,7 @@ import {parseArgs} from 'node:util';
 
 import * as assetFileHandler from './asset-file-handler.js';
 import * as figmaApiHandler from './figma-api-handler.js';
+import {printManual} from './help.js';
 import {boldTxt} from './logger.js';
 import * as uiComponentBuilder from './ui-component-builder.js';
 
@@ -66,10 +67,19 @@ const options = {
     type: 'string',
     short: 'c',
   },
+  'help': {
+    type: 'boolean',
+    default: false,
+  },
 };
 
 const {values} = parseArgs({options});
 const argValues = values;
+
+if (typeof argValues.help !== 'undefined') {
+  await printManual();
+  process.exit(1);
+}
 
 const outputFormats = argValues.format.split(',');
 

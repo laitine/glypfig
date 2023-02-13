@@ -60,6 +60,7 @@ For best results always have your icon component's main layer in Figma boxed wit
 | License file    | license, l     | string  | ./templates/LICENSE.txt    | Pass empty for default, e.g. ./the-path/to/your-license-file |
 | JPG image scale | jpgscale, b    | string  | None                       | Scale of exported image 0.01 - 4                             |
 | PNG image scale | pngscale, c    | string  | None                       | Scale of exported image 0.01 - 4                             |
+| Help            | help           | boolean |                            |                                                              |
 
 ## More
 

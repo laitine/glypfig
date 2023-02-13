@@ -1,0 +1,66 @@
+.TH glypfig 1
+
+NAME
+    glypfig – The icon library workflow for Figma
+
+SYNOPSIS
+    glypfig [options]
+
+DESCRIPTION
+    Glypfig is a CLI tool that allows generating images and/or UI components from existing Figma design assets.
+
+EXAMPLES
+    npx glypfig --apikey <figma-api-key> --filekey <figma-file-key> --nodeid <icon-frame-node-id>
+
+OPTIONS
+    --apikey, -a
+        Personal access token generated to authenticate with Figma API.  string
+
+    --filekey, -k
+        The unique file key of a Figma project.  string
+
+    --nodeid, -n
+        The Node ID of a container i.e. frame on a Figma page.  string
+
+    --format, -f
+        The output format(s) to generate including jpg, pdf, png, svg and react. Default 'png,svg,react'.  string
+
+    --output, -o
+        The directory path where to generate the icon library. Default 'icon-library'.  string
+
+    --silent, -s
+        Enables running without logging unless errors occur.  boolean
+
+    --optimize, -p
+        Optimizes the generated image files with imagemin.  boolean
+
+    --template, -t
+        The template format(s) for generating UI components. Includes jsx and tsx. Default 'jsx'.  string
+
+    --path, -h
+        The template file path to a custom UI component template. Default './templates/react-jsx.eta'.  string
+
+    --license, -l
+        The file path to a custom license file. Pass empty string for MIT license template. Default './templates/LICENSE.txt'.  string
+
+    --jpgscale, -b
+        The image size scale of exported JPG files. Accepts values between 0.01 - 4.  string
+
+    --pngscale, -c
+        The image size scale of exported PNG files. Accepts values between 0.01 - 4.  string
+
+BUGS
+    Bugs are tracked in GitHub Issues: https://github.com/laitine/glypfig/issues
+
+COPYRIGHT
+    Copyright Glypfig contributors. Glypfig is available under the Apache 2.0 license.
+
+    Glypfig also includes external libraries that are available under a variety of licenses.  See https://github.com/laitine/glypfig/blob/HEAD/LICENSE for the full license text.
+
+SEE ALSO
+    Website: https://laitine.github.io/glypfig
+
+    GitHub repository and issue tracker: https://github.com/laitine/glypfig
+
+AUTHORS
+    Listing of contributors: https://github.com/laitine/glypfig/graphs/contributors

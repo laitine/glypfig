@@ -34,6 +34,7 @@
   "bin": {
     "glypfig": "./src/index.js"
   },
+  "man": "./man/doc.1",
   "scripts": {
     "lint": "yarn lint:cli && yarn lint:build",
     "lint:cli": "eslint --fix ./src/*.js",
