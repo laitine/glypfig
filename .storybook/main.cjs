@@ -9,5 +9,6 @@ module.exports = {
     "@storybook/addon-interactions",
     "storybook-css-modules"
   ],
+  "staticDirs": ['../static'],
   "framework": "@storybook/react"
 }
