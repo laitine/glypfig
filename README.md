@@ -26,6 +26,10 @@ To exclude a component to be exported from the frame prefix it's name with a dot
 
 For best results always have your icon component's main layer in Figma boxed with equal width and height e.g. 24x24px.
 
+### Development notes
+
+It is suggested to run a linter on build components such as [Prettier](https://prettier.io/).
+
 ## Get started
 
 1. Install Glypfig from [NPM](https://www.npmjs.com/package/glypfig) with `npm` or `yarn`.
@@ -44,7 +48,7 @@ For best results always have your icon component's main layer in Figma boxed wit
     npx glypfig --apikey <figma-api-key> --filekey <figma-file-key> --nodeid <icon-frame-node-id>
     ```
 
-### configuration
+### Configuration
 
 | Parameter       |  Flag          | Value   | Default                    | Options                                                      |
 | --------------- | -------------- | ------- | -------------------------- | ------------------------------------------------------------ |
