@@ -132,7 +132,6 @@ const main = async () => {
   const figmaData = await figmaApiHandler.fetchFileDataFromAPI();
 
   let iconNodeData = figmaApiHandler.parseFileData(figmaData);
-  // console.log(figmaData); //
   iconNodeData = await figmaApiHandler.combineNodeIDsWithAssetFileURLs(
       iconNodeData, outputFormats, outputFormatScale);
 

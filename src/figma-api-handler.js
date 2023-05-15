@@ -123,8 +123,8 @@ const parseFileData = (response) => {
       childNodes.push(item.children.concat());
     });
     childNodes = childNodes.flat();
-    const iconNodes = parseChildren(childNodes);
 
+    const iconNodes = parseChildren(childNodes);
     iconNodes.forEach((item) => {
       iconsData.push({
         id: item.id,

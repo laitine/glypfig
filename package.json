@@ -56,18 +56,18 @@
     "@storybook/manager-webpack4": "^6.5.16",
     "@storybook/react": "^6.5.16",
     "@storybook/testing-library": "^0.0.13",
-    "@svgr/webpack": "^6.5.1",
+    "@svgr/webpack": "^8.0.1",
     "@types/react": "^18.0.27",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
-    "babel-loader": "^8.3.0",
+    "babel-loader": "^9.1.2",
     "eslint": ">=5.16.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-storybook": "^0.6.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook-css-modules": "^1.0.8",
-    "typescript": "^4.9.5"
+    "typescript": "4.9.4"
   },
   "dependencies": {
     "axios": "^1.2.5",
