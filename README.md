@@ -22,7 +22,7 @@ Picks up your existing icons from Figma and outputs them ready for production. C
 
 ### Figma notes
 
-To exclude a component to be exported from the frame prefix it's name with a dot e.g. ".Title".
+To exclude a component to be exported from the frame prefix it's name with a dot e.g. ".Title". Frames and groups along with their child nodes can also be excluded in the same way.
 
 For best results always have your icon component's main layer in Figma boxed with equal width and height e.g. 24x24px.
 
