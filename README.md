@@ -71,3 +71,7 @@ It is suggested to run a linter on build components such as [Prettier](https://p
 [Support](https://www.patreon.com/Glypfig) this project
 
 [Eta templating engine](https://eta.js.org/)
+
+## Thanks
+
+[Helsinki Design System](https://github.com/City-of-Helsinki/helsinki-design-system)

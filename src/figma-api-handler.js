@@ -67,8 +67,8 @@ const parseNode = (childNode) => {
     return childNode;
   }
 
-  if (childNode.type == 'FRAME' ||
-      childNode.type == 'GROUP' &&
+  if (childNode.type == 'GROUP' ||
+      childNode.type == 'FRAME' &&
       childNode.children.length !== 0) {
     return parseChildren(childNode.children);
   }
@@ -79,7 +79,10 @@ const parseChildren = (children) => {
   const componentNodes = [];
 
   for (let i = 0; i < children.length; i++) {
-    if (children[i].name.charAt(0) !== '.') {
+    if (children[i].name.charAt(0) !== '.' &&
+        children[i].type === 'COMPONENT' ||
+        children[i].type === 'GROUP' ||
+        children[i].type === 'FRAME') {
       const result = parseNode(children[i]);
       componentNodes.push(result);
     }
