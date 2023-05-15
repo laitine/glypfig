@@ -61,6 +61,33 @@ const fetchFileDataFromAPI = async () => {
   }
 };
 
+// Parse node for a component
+const parseNode = (childNode) => {
+  if (childNode.type === 'COMPONENT') {
+    return childNode;
+  }
+
+  if (childNode.type == 'FRAME' ||
+      childNode.type == 'GROUP' &&
+      childNode.children.length !== 0) {
+    return parseChildren(childNode.children);
+  }
+};
+
+// Parse list of nodes
+const parseChildren = (children) => {
+  const componentNodes = [];
+
+  for (let i = 0; i < children.length; i++) {
+    if (children[i].name.charAt(0) !== '.') {
+      const result = parseNode(children[i]);
+      componentNodes.push(result);
+    }
+  }
+
+  return componentNodes.flat();
+};
+
 // Parse fetched data
 const parseFileData = (response) => {
   if (response.status === 404) {
@@ -96,15 +123,7 @@ const parseFileData = (response) => {
       childNodes.push(item.children.concat());
     });
     childNodes = childNodes.flat();
-
-    const iconNodes = [];
-    childNodes
-        .filter((item) => {
-          return item.type === 'COMPONENT' && item.name.charAt(0) !== '.';
-        })
-        .forEach((item) => {
-          iconNodes.push(item);
-        });
+    const iconNodes = parseChildren(childNodes);
 
     iconNodes.forEach((item) => {
       iconsData.push({
