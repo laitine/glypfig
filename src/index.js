@@ -67,6 +67,10 @@ const options = {
     type: 'string',
     short: 'c',
   },
+  'filter': {
+    type: 'string',
+    short: 'i',
+  },
   'help': {
     type: 'boolean',
     default: false,
@@ -100,6 +104,8 @@ const jpgScale = argValues.jpgscale;
 
 const pngScale = argValues.pngscale;
 
+const propertiesFilter = argValues.filter;
+
 const main = async () => {
   // Handle parameters
   figmaApiHandler.init(
@@ -124,6 +130,9 @@ const main = async () => {
     outputFormatScale.pngScale = pngScale;
   }
 
+  const propertiesFilters = typeof propertiesFilter !== 'undefined' ?
+    propertiesFilter.trim(' ').split(',') : propertiesFilter;
+
   // Start executing features
   if (isLogging) {
     console.log(boldTxt('💠 Glypfig generating icon library\n'));
@@ -131,7 +140,8 @@ const main = async () => {
 
   const figmaData = await figmaApiHandler.fetchFileDataFromAPI();
 
-  let iconNodeData = figmaApiHandler.parseFileData(figmaData);
+  let iconNodeData = figmaApiHandler.parseFileData(figmaData,
+      propertiesFilters);
   iconNodeData = await figmaApiHandler.combineNodeIDsWithAssetFileURLs(
       iconNodeData, outputFormats, outputFormatScale);
 

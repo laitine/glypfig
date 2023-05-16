@@ -62,29 +62,44 @@ const fetchFileDataFromAPI = async () => {
 };
 
 // Parse node for a component
-const parseNode = (childNode) => {
+const parseNode = (childNode, nodeProperties, nodeName) => {
   if (childNode.type === 'COMPONENT') {
+    if (typeof nodeProperties !== 'undefined') {
+      const properties = childNode.name.trim(' ').split(',');
+
+      if (nodeProperties.some(
+          (property) => properties.indexOf(property) === -1)) {
+        return null;
+      }
+
+      childNode.name = nodeName;
+    }
+
     return childNode;
   }
 
-  if (childNode.type == 'GROUP' ||
-      childNode.type == 'FRAME' &&
+  if (childNode.type === 'COMPONENT_SET' ||
+      childNode.type === 'GROUP' ||
+      childNode.type === 'FRAME' &&
       childNode.children.length !== 0) {
-    return parseChildren(childNode.children);
+    return parseChildren(childNode.children, nodeProperties, childNode.name);
   }
 };
 
 // Parse list of nodes
-const parseChildren = (children) => {
+const parseChildren = (children, nodeProperties, nodeName) => {
   const componentNodes = [];
 
   for (let i = 0; i < children.length; i++) {
     if (children[i].name.charAt(0) !== '.' &&
         children[i].type === 'COMPONENT' ||
+        children[i].type === 'COMPONENT_SET' ||
         children[i].type === 'GROUP' ||
         children[i].type === 'FRAME') {
-      const result = parseNode(children[i]);
-      componentNodes.push(result);
+      const result = parseNode(children[i], nodeProperties, nodeName);
+      if (result !== null) {
+        componentNodes.push(result);
+      }
     }
   }
 
@@ -92,7 +107,7 @@ const parseChildren = (children) => {
 };
 
 // Parse fetched data
-const parseFileData = (response) => {
+const parseFileData = (response, nodeProperties) => {
   if (response.status === 404) {
     console.log(warningTxt('The Figma file was not found.'));
     process.exit(9);
@@ -127,7 +142,7 @@ const parseFileData = (response) => {
     });
     childNodes = childNodes.flat();
 
-    const iconNodes = parseChildren(childNodes);
+    const iconNodes = parseChildren(childNodes, nodeProperties);
     iconNodes.forEach((item) => {
       iconsData.push({
         id: item.id,

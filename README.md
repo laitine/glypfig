@@ -50,21 +50,22 @@ It is suggested to run a linter on build components such as [Prettier](https://p
 
 ### Configuration
 
-| Parameter       |  Flag          | Value   | Default                    | Options                                                      |
-| --------------- | -------------- | ------- | -------------------------- | ------------------------------------------------------------ |
-| Figma API Key   | apikey, a      | string  | None                       | Figma: Settings/Account/Personal access tokens               |
-| File key        | filekey, k     | string  | None                       | figma.com/file/{figma-file-key}/Glypfig                      |
-| Node ID         | nodeid, n      | string  | None                       | figma.com/...?node-id=0%3A1 URL decoded to 0:1               |
-| Output format   | format, f      | string  | png,svg,react              | jpg, png, svg, pdf and react                                 |
-| Output path     | output, o      | string  | icon-library               | e.g. ./the-path/to/your-icons                                |
-| Silent logging  | silent, s      | boolean | false                      | true or false                                                |
-| Optimize files  | optimize, p    | boolean | false                      | true or false                                                |
-| Template format | template, t    | string  | jsx                        | jsx and tsx                                                  |
-| Template path   | path, h        | string  | ./templates/react-jsx.eta  | e.g. ./the-path/to/your-template-tsx.eta                     |
-| License file    | license, l     | string  | ./templates/LICENSE.txt    | Pass empty for default, e.g. ./the-path/to/your-license-file |
-| JPG image scale | jpgscale, b    | string  | None                       | Scale of exported image 0.01 - 4                             |
-| PNG image scale | pngscale, c    | string  | None                       | Scale of exported image 0.01 - 4                             |
-| Help            | help           | boolean |                            |                                                              |
+| Parameter         |  Flag          | Value   | Default                   | Options                                                      |
+| ----------------- | -------------- | ------- | ------------------------- | ------------------------------------------------------------ |
+| Figma API Key     | apikey, a      | string  | None                      | Figma: Settings/Account/Personal access tokens               |
+| File key          | filekey, k     | string  | None                      | figma.com/file/{figma-file-key}/Glypfig                      |
+| Node ID           | nodeid, n      | string  | None                      | figma.com/...?node-id=0%3A1 URL decoded to 0:1               |
+| Output format     | format, f      | string  | png,svg,react             | jpg, png, svg, pdf and react                                 |
+| Output path       | output, o      | string  | icon-library              | e.g. ./the-path/to/your-icons                                |
+| Silent logging    | silent, s      | boolean | false                     | true or false                                                |
+| Optimize files    | optimize, p    | boolean | false                     | true or false                                                |
+| Template format   | template, t    | string  | jsx                       | jsx and tsx                                                  |
+| Template path     | path, h        | string  | ./templates/react-jsx.eta | e.g. ./the-path/to/your-template-tsx.eta                     |
+| License file      | license, l     | string  | ./templates/LICENSE.txt   | Pass empty for default, e.g. ./the-path/to/your-license-file |
+| JPG image scale   | jpgscale, b    | string  | None                      | Scale of exported image 0.01 - 4                             |
+| PNG image scale   | pngscale, c    | string  | None                      | Scale of exported image 0.01 - 4                             |
+| Properties filter | filter, i      | string  | None                      | Filter components by properties e.g. 'Size=XS, Color=Blue'   |
+| Help              | help           | boolean |                           |                                                              |
 
 ## More
 
