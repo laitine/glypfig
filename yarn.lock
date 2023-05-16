@@ -5870,6 +5870,11 @@ eslint-config-google@^0.14.0:
   resolved "https://registry.yarnpkg.com/eslint-config-google/-/eslint-config-google-0.14.0.tgz#4f5f8759ba6e11b424294a219dbfa18c508bcc1a"
   integrity sha512-WsbX4WbjuMvTdeVL6+J3rK1RGhCTqjsFjX7UMSMgZiyxxaNLkoJENbrGExzERFeoTpGw3F3FypTiWAP9ZXzkEw==
 
+eslint-plugin-eta@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-eta/-/eslint-plugin-eta-0.1.0.tgz#d4e4154af45a23536398a8b2a287ac136f17195d"
+  integrity sha512-1pGCbP2akSr+l9cZrZtRdQzGdkXu0BEQTFr6Mh+Ji1ZXvukH1PdKp6AllRJfiYRHjJGtBYyWokjlbcCeEljzlA==
+
 eslint-plugin-storybook@^0.6.10:
   version "0.6.12"
   resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-0.6.12.tgz#7bdb3392bb03bebde40ed19accfd61246e9d6301"

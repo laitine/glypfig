@@ -4,6 +4,9 @@
         "browser": true,
         "es2021": true
     },
+    "plugins": [
+        "eta"
+    ],
     "extends": [
         "google",
         "plugin:storybook/recommended",
@@ -16,6 +19,10 @@
             "rules": {
                 "max-len": "off"
             }
+        },
+        {
+            "files": "./templates/*.eta",
+            "processor": "eta/eta"
         }
     ],
     "parserOptions": {

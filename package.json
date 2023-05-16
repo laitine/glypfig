@@ -36,9 +36,10 @@
   },
   "man": "./man/doc.1",
   "scripts": {
-    "lint": "yarn lint:cli && yarn lint:build",
+    "lint": "yarn lint:cli && yarn lint:build && yarn lint:templates",
     "lint:cli": "eslint --fix ./src/*.js",
     "lint:build": "eslint --fix ./icon-library/react/*.{jsx,tsx}",
+    "lint:templates": "eslint --fix ./templates/*.eta",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -63,6 +64,7 @@
     "babel-loader": "^9.1.2",
     "eslint": ">=5.16.0",
     "eslint-config-google": "^0.14.0",
+    "eslint-plugin-eta": "^0.1.0",
     "eslint-plugin-storybook": "^0.6.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
