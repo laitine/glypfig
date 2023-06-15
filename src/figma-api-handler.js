@@ -239,7 +239,7 @@ const combineNodeIDsWithAssetFileURLs = async (iconNodes, formats, scales) => {
 // Download asset files data
 const downloadAssetFilesData = async (iconNodes) => {
   if (isLogging) {
-    console.log(`Downloading ${iconNodes.length} different icons as files...`);
+    console.log(`Downloading ${iconNodes.length} icon(s) as files...`);
   }
 
   return Promise.all(

@@ -8,7 +8,7 @@ The icon library workflow for Figma.
 
 ![Glypfig icon library creator](https://raw.githubusercontent.com/laitine/glypfig/main/header.png)
 
-Picks up your existing icons from Figma and outputs them ready for production. Currently supported export formats include JPG, PDF, PNG, SVG and React (with typescript support). Can also optimize image assets and builds UI components according to an editable template.
+Picks up your existing icons from Figma and outputs them ready for production. Currently supported export formats include JPG, PDF, PNG, SVG, CSS and React (with typescript support). Can also optimize image assets and builds UI components according to your custom template.
 
 [Find an example with all formats here](https://laitine.github.io/glypfig/)
 
@@ -28,7 +28,7 @@ For best results always have your icon component's main layer in Figma boxed wit
 
 ### Development notes
 
-It is suggested to run a linter on build components such as [Prettier](https://prettier.io/).
+It is suggested to run a linter on build components such as [Prettier](https://prettier.io/) and code analyser such as [ESLint](https://eslint.org/).
 
 ## Get started
 
@@ -53,19 +53,22 @@ It is suggested to run a linter on build components such as [Prettier](https://p
 | Parameter         |  Flag          | Value   | Default                   | Options                                                      |
 | ----------------- | -------------- | ------- | ------------------------- | ------------------------------------------------------------ |
 | Figma API Key     | apikey, a      | string  | None                      | Figma: Settings/Account/Personal access tokens               |
-| File key          | filekey, k     | string  | None                      | figma.com/file/{figma-file-key}/Glypfig                      |
-| Node ID           | nodeid, n      | string  | None                      | figma.com/...?node-id=0%3A1 URL decoded to 0:1               |
-| Output format     | format, f      | string  | png,svg,react             | jpg, png, svg, pdf and react                                 |
+| File key          | filekey, k     | string  | None                      | e.g. figma.com/file/{figma-file-key}/Glypfig                 |
+| Node ID           | nodeid, n      | string  | None                      | figma.com/...?node-id=0%3A1 URL param value decoded to 0:1   |
+| Output format     | format, f      | string  | png,svg,react             | jpg, png, svg, pdf, css and react                            |
 | Output path       | output, o      | string  | icon-library              | e.g. ./the-path/to/your-icons                                |
 | Silent logging    | silent, s      | boolean | false                     | true or false                                                |
 | Optimize files    | optimize, p    | boolean | false                     | true or false                                                |
-| Template format   | template, t    | string  | jsx                       | jsx and tsx                                                  |
-| Template path     | path, h        | string  | ./templates/react-jsx.eta | e.g. ./the-path/to/your-template-tsx.eta                     |
+| Template formats  | template, t    | string  | jsx                       | jsx and tsx                                                  |
+| CSS template path | csspath, c     | string  | ./templates/css.eta       | e.g. ./the-path/to/your-template-css.eta                     |
+| JS template path  | jspath, j      | string  | ./templates/react-jsx.eta | e.g. ./the-path/to/your-template-tsx.eta                     |
+| CSS prefix        | cssprefix, r   | string  | icon-                     | e.g "glypfig-"                                               |
+| JS prefix         | jsprefix, e    | string  | Icon                      | e.g. "Glypfig"                                               |
 | License file      | license, l     | string  | ./templates/LICENSE.txt   | Pass empty for default, e.g. ./the-path/to/your-license-file |
 | JPG image scale   | jpgscale, b    | string  | None                      | Scale of exported image 0.01 - 4                             |
-| PNG image scale   | pngscale, c    | string  | None                      | Scale of exported image 0.01 - 4                             |
+| PNG image scale   | pngscale, d    | string  | None                      | Scale of exported image 0.01 - 4                             |
 | Properties filter | filter, i      | string  | None                      | Filter components by properties e.g. 'Size=XS, Color=Blue'   |
-| Help              | help           | boolean |                           |                                                              |
+| Help              | help           | boolean | None                      | Show help                                                    |
 
 ## More
 

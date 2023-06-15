@@ -11,7 +11,7 @@ interface IconProps {
   style?: React.CSSProperties;
 }
 
-export const <%= it.componentName %> = ({
+export const <%= it.componentJSName %> = ({
   ariaLabel = '<%= it.iconName %>',
   ariaLabelledby,
   ariaHidden = true,

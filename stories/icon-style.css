@@ -15,3 +15,17 @@
     grid-template-rows: repeat(1, 64px);
     grid-gap: 10px;
 }
+
+.css-icon {
+    --icon-size: 100%;
+    background-color: currentcolor;
+    display: inline-block;
+    height: var(--icon-size);
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: auto;
+    mask-size: auto;
+    width: var(--icon-size);
+}

@@ -38,7 +38,7 @@
   "scripts": {
     "lint": "yarn lint:cli && yarn lint:build && yarn lint:templates",
     "lint:cli": "eslint --fix ./src/*.js",
-    "lint:build": "eslint --fix ./icon-library/react/*.{jsx,tsx}",
+    "lint:build": "eslint --fix ./icon-library/react/*/*.{jsx,tsx}",
     "lint:templates": "eslint --fix ./templates/*.eta",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

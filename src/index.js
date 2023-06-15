@@ -51,9 +51,21 @@ const options = {
     short: 't',
     default: 'jsx',
   },
-  'path': {
+  'csspath': {
     type: 'string',
-    short: 'h',
+    short: 'c',
+  },
+  'jspath': {
+    type: 'string',
+    short: 'j',
+  },
+  'cssprefix': {
+    type: 'string',
+    short: 'r',
+  },
+  'jsprefix': {
+    type: 'string',
+    short: 'e',
   },
   'license': {
     type: 'string',
@@ -65,7 +77,7 @@ const options = {
   },
   'pngscale': {
     type: 'string',
-    short: 'c',
+    short: 'd',
   },
   'filter': {
     type: 'string',
@@ -96,7 +108,17 @@ const isOptimized = typeof argValues.optimize !== 'undefined' &&
 
 const templateFormats = argValues.template.split(',');
 
-const templatePath = argValues.path;
+const cssTemplatePath = typeof argValues.csspath === 'undefined' ?
+    null : argValues.csspath;
+
+const jsTemplatePath = typeof argValues.jspath === 'undefined' ?
+    null : argValues.jspath;
+
+const cssPrefix = typeof argValues.cssprefix === 'undefined' ?
+    null : argValues.cssprefix;
+
+const jsPrefix = typeof argValues.jsprefix === 'undefined' ?
+    null : argValues.jsprefix;
 
 const licensePath = argValues.license;
 
@@ -111,12 +133,27 @@ const main = async () => {
   figmaApiHandler.init(
       argValues.apikey, argValues.filekey, argValues.nodeid, isLogging);
 
-  let isReact = false;
-  if (outputFormats.includes('react')) {
-    isReact = true;
-    const idx = outputFormats.indexOf('react');
-    outputFormats.splice(idx, 1);
+  const outputFormatsToFetch = outputFormats;
+  const componentFormatsToBuild = [];
 
+  let formatIdx = outputFormatsToFetch.indexOf('css');
+  if (formatIdx !== -1) {
+    componentFormatsToBuild.push('css');
+    outputFormatsToFetch.splice(formatIdx, 1);
+    if (!outputFormatsToFetch.includes('svg')) {
+      outputFormatsToFetch.push('svg');
+    }
+  }
+  formatIdx = outputFormatsToFetch.indexOf('react');
+  if (formatIdx !== -1) {
+    componentFormatsToBuild.push('react');
+    outputFormatsToFetch.splice(formatIdx, 1);
+    if (!outputFormatsToFetch.includes('svg')) {
+      outputFormatsToFetch.push('svg');
+    }
+  }
+
+  if (outputFormats.includes('react')) {
     if (!outputFormats.includes('svg')) {
       outputFormats.push('svg');
     }
@@ -133,7 +170,7 @@ const main = async () => {
   const propertiesFilters = typeof propertiesFilter !== 'undefined' ?
     propertiesFilter.trim(' ').split(',') : propertiesFilter;
 
-  // Start executing features
+  // Fetch image assets
   if (isLogging) {
     console.log(boldTxt('💠 Glypfig generating icon library\n'));
   }
@@ -142,28 +179,57 @@ const main = async () => {
 
   let iconNodeData = figmaApiHandler.parseFileData(figmaData,
       propertiesFilters);
+
   iconNodeData = await figmaApiHandler.combineNodeIDsWithAssetFileURLs(
-      iconNodeData, outputFormats, outputFormatScale);
+      iconNodeData, outputFormatsToFetch, outputFormatScale);
 
   iconNodeData = await figmaApiHandler.downloadAssetFilesData(iconNodeData);
 
   iconNodeData = await assetFileHandler.writeAssetDataToFile(
       iconNodeData, outputPath);
 
+  // Optimize image assets
   if (isOptimized) {
     await assetFileHandler.optimizeAssetFiles(outputPath, isLogging);
   }
 
-  if (isReact) {
-    for (const templateFormat of templateFormats) {
-      iconNodeData = await uiComponentBuilder.generateReactComponents(
-          iconNodeData, outputPath, templateFormat, templatePath, isLogging);
+  // Build UI components
+  iconNodeData = await uiComponentBuilder.readComponentSVGData(iconNodeData);
 
-      await uiComponentBuilder.generateComponentsIndex(
-          iconNodeData, outputPath, templateFormat, 'react', isLogging);
+  if (componentFormatsToBuild.length !== 0) {
+    for (const componentFormat of componentFormatsToBuild) {
+      let templatePath = null;
+      let prefix = null;
+
+      if (componentFormat === 'css') {
+        if (cssTemplatePath !== null) {
+          templatePath = cssTemplatePath;
+        }
+        if (cssPrefix !== null) {
+          prefix = cssPrefix;
+        }
+      } else if (componentFormat === 'react') {
+        if (jsTemplatePath !== null) {
+          templatePath = jsTemplatePath;
+        }
+        if (jsPrefix !== null) {
+          prefix = jsPrefix;
+        }
+      }
+
+      iconNodeData = await uiComponentBuilder.generateComponents(
+          iconNodeData,
+          outputPath,
+          componentFormat,
+          templateFormats,
+          templatePath,
+          prefix,
+          isLogging,
+      );
     }
   }
 
+  // Create license file
   if (typeof licensePath !== 'undefined') {
     await assetFileHandler.createLicense(licensePath, outputPath, isLogging);
   }
