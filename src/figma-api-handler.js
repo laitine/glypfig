@@ -62,14 +62,25 @@ const fetchFileDataFromAPI = async () => {
 };
 
 // Parse node for a component
-const parseNode = (childNode, nodeProperties, nodeName) => {
+const parseNode = (childNode, nodeProperties, nodeName, setName) => {
   if (childNode.type === 'COMPONENT') {
-    if (typeof nodeProperties !== 'undefined') {
-      const properties = childNode.name.trim(' ').split(',');
+    if (nodeProperties !== null && !childNode.name.includes('=')) {
+      return null;
+    }
 
-      if (nodeProperties.some(
+    if (childNode.name.includes('=')) {
+      const properties = childNode.name.replace(/\s/g, '').split(',');
+
+      if (nodeProperties !== null && nodeProperties.some(
           (property) => properties.indexOf(property) === -1)) {
         return null;
+      }
+
+      if (setName !== null) {
+        for (const property of properties) {
+          nodeName = nodeName +
+              '-' + property.toLowerCase().replace('=', '-');
+        }
       }
 
       childNode.name = nodeName;
@@ -82,12 +93,15 @@ const parseNode = (childNode, nodeProperties, nodeName) => {
       childNode.type === 'GROUP' ||
       childNode.type === 'FRAME' &&
       childNode.children.length !== 0) {
-    return parseChildren(childNode.children, nodeProperties, childNode.name);
+    const componentSetName =
+        childNode.type === 'COMPONENT_SET' ? childNode.name : null;
+    return parseChildren(
+        childNode.children, nodeProperties, childNode.name, componentSetName);
   }
 };
 
 // Parse list of nodes
-const parseChildren = (children, nodeProperties, nodeName) => {
+const parseChildren = (children, nodeProperties, nodeName, setName) => {
   const componentNodes = [];
 
   for (let i = 0; i < children.length; i++) {
@@ -96,7 +110,10 @@ const parseChildren = (children, nodeProperties, nodeName) => {
         children[i].type === 'COMPONENT_SET' ||
         children[i].type === 'GROUP' ||
         children[i].type === 'FRAME') {
-      const result = parseNode(children[i], nodeProperties, nodeName);
+      const componentSetName =
+          children[i].type === 'COMPONENT_SET' ? children[i].name : setName;
+      const result = parseNode(
+          children[i], nodeProperties, nodeName, componentSetName);
       if (result !== null) {
         componentNodes.push(result);
       }

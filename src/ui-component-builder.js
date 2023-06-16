@@ -9,6 +9,7 @@ import {fileURLToPath} from 'node:url';
 import {errorTxt} from './logger.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const JS_DEFAULT_TEMPLATE_FORMAT = ['jsx'];
 const TEMPLATES_DIR = join(__dirname, '../templates');
 const CSS_TEMPLATE_PATH = join(TEMPLATES_DIR, 'css.eta');
 const CSS_PREFIX = 'icon-';
@@ -153,12 +154,11 @@ const createCSSComponents = async (
     templatePath = customTemplatePath;
   }
   const iconComponentTemplatePath = resolve(process.cwd(), templatePath);
-console.log(prefix);
+
   let namePrefix = CSS_PREFIX;
   if (prefix !== null) {
     namePrefix = prefix;
   }
-console.log(namePrefix);
 
   return Promise.all(
       iconNodesData.map(async (nodeItem) => {
@@ -263,6 +263,9 @@ const generateComponents = async (
     await generateComponentsIndex(
         iconComponentsData, outputDir, componentFormat, isLogging);
   } else if (componentFormat === 'react') {
+    if (templateFormats === null) {
+      templateFormats = JS_DEFAULT_TEMPLATE_FORMAT;
+    }
     for (const templateFormat of templateFormats) {
       iconComponentsData = await createJSComponents(
           iconNodesData,

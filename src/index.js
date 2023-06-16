@@ -49,7 +49,6 @@ const options = {
   'template': {
     type: 'string',
     short: 't',
-    default: 'jsx',
   },
   'csspath': {
     type: 'string',
@@ -85,6 +84,7 @@ const options = {
   },
   'help': {
     type: 'boolean',
+    short: 'h',
     default: false,
   },
 };
@@ -106,7 +106,9 @@ const outputPath = resolve(process.cwd(), argValues.output);
 const isOptimized = typeof argValues.optimize !== 'undefined' &&
   argValues.optimize;
 
-const templateFormats = argValues.template.split(',');
+const templateFormats =
+    typeof argValues.template !== 'undefined' ?
+    argValues.template.split(',') : null;
 
 const cssTemplatePath = typeof argValues.csspath === 'undefined' ?
     null : argValues.csspath;
@@ -120,13 +122,18 @@ const cssPrefix = typeof argValues.cssprefix === 'undefined' ?
 const jsPrefix = typeof argValues.jsprefix === 'undefined' ?
     null : argValues.jsprefix;
 
-const licensePath = argValues.license;
+const licensePath = typeof argValues.license === 'undefined' ?
+    null : argValues.license;
 
-const jpgScale = argValues.jpgscale;
+const jpgScale = typeof argValues.jpgscale === 'undefined' ?
+    null : argValues.jpgscale;
 
-const pngScale = argValues.pngscale;
+const pngScale = typeof argValues.pngscale === 'undefined' ?
+    null : argValues.pngscale;
 
-const propertiesFilter = argValues.filter;
+const propertiesFilters =
+    typeof argValues.filter !== 'undefined' ?
+    argValues.filter.replace(/\s/g, '').split(',') : null;
 
 const main = async () => {
   // Handle parameters
@@ -166,9 +173,6 @@ const main = async () => {
   if (typeof pngScale !== 'undefined') {
     outputFormatScale.pngScale = pngScale;
   }
-
-  const propertiesFilters = typeof propertiesFilter !== 'undefined' ?
-    propertiesFilter.trim(' ').split(',') : propertiesFilter;
 
   // Fetch image assets
   if (isLogging) {
@@ -230,7 +234,7 @@ const main = async () => {
   }
 
   // Create license file
-  if (typeof licensePath !== 'undefined') {
+  if (licensePath !== null) {
     await assetFileHandler.createLicense(licensePath, outputPath, isLogging);
   }
 
