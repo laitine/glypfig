@@ -41,7 +41,8 @@
     "lint:build": "eslint --fix ./icon-library/react/*/*.{jsx,tsx}",
     "lint:templates": "eslint --fix ./templates/*.eta",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "test": "node --test  --test-reporter spec tests/*.test.js"
   },
   "engines": {
     "node": ">=18.3.0"

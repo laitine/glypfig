@@ -11,3 +11,4 @@ tsconfig.json
 header.png
 yarn.lock
 *.log
+tests
