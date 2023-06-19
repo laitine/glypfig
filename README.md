@@ -68,6 +68,7 @@ It is suggested to run a linter on build components such as [Prettier](https://p
 | JPG image scale   | jpgscale, b    | string  | None                      | Scale of exported image 0.01 - 4                             |
 | PNG image scale   | pngscale, d    | string  | None                      | Scale of exported image 0.01 - 4                             |
 | Properties filter | filter, i      | string  | None                      | Filter components by properties e.g. 'Size=XS, Color=Blue'   |
+| Variants naming   | varnames, v    | boolean | None                      | Figma component properties in name e.g. icon-size-large.svg  |
 | Help              | help, h        | boolean | None                      | Show help                                                    |
 
 ## More

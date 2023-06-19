@@ -82,6 +82,11 @@ const options = {
     type: 'string',
     short: 'i',
   },
+  'varnames': {
+    type: 'boolean',
+    short: 'v',
+    default: false,
+  },
   'help': {
     type: 'boolean',
     short: 'h',
@@ -104,7 +109,7 @@ const isLogging = typeof argValues.silent !== 'undefined' && !argValues.silent;
 const outputPath = resolve(process.cwd(), argValues.output);
 
 const isOptimized = typeof argValues.optimize !== 'undefined' &&
-  argValues.optimize;
+    argValues.optimize;
 
 const templateFormats =
     typeof argValues.template !== 'undefined' ?
@@ -134,6 +139,9 @@ const pngScale = typeof argValues.pngscale === 'undefined' ?
 const propertiesFilters =
     typeof argValues.filter !== 'undefined' ?
     argValues.filter.replace(/\s/g, '').split(',') : null;
+
+const isVarNames = typeof argValues.varnames !== 'undefined' &&
+    argValues.varnames;
 
 const main = async () => {
   // Handle parameters
@@ -182,7 +190,7 @@ const main = async () => {
   const figmaData = await figmaApiHandler.fetchFileDataFromAPI();
 
   let iconNodeData = figmaApiHandler.parseFileData(figmaData,
-      propertiesFilters);
+      propertiesFilters, isVarNames);
 
   iconNodeData = await figmaApiHandler.combineNodeIDsWithAssetFileURLs(
       iconNodeData, outputFormatsToFetch, outputFormatScale);

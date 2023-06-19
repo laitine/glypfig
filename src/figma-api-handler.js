@@ -62,21 +62,26 @@ const fetchFileDataFromAPI = async () => {
 };
 
 // Parse node for a component
-const parseNode = (childNode, nodeProperties, nodeName, setName) => {
+const parseNode = (
+    childNode, nodeProperties, nodeName, isPropertyNames) => {
   if (childNode.type === 'COMPONENT') {
+    // Don't include components without properties when filtering
     if (nodeProperties !== null && !childNode.name.includes('=')) {
       return null;
     }
 
+    // Only components with properties
     if (childNode.name.includes('=')) {
       const properties = childNode.name.replace(/\s/g, '').split(',');
 
+      // Discard components not in filter scope
       if (nodeProperties !== null && nodeProperties.some(
           (property) => properties.indexOf(property) === -1)) {
         return null;
       }
 
-      if (setName !== null) {
+      // Use component set name or component set name with variant values
+      if (isPropertyNames) {
         for (const property of properties) {
           nodeName = nodeName +
               '-' + property.toLowerCase().replace('=', '-');
@@ -93,15 +98,17 @@ const parseNode = (childNode, nodeProperties, nodeName, setName) => {
       childNode.type === 'GROUP' ||
       childNode.type === 'FRAME' &&
       childNode.children.length !== 0) {
-    const componentSetName =
-        childNode.type === 'COMPONENT_SET' ? childNode.name : null;
     return parseChildren(
-        childNode.children, nodeProperties, childNode.name, componentSetName);
+        childNode.children,
+        nodeProperties,
+        childNode.name,
+        isPropertyNames);
   }
 };
 
 // Parse list of nodes
-const parseChildren = (children, nodeProperties, nodeName, setName) => {
+const parseChildren = (
+    children, nodeProperties, nodeName, isPropertyNames) => {
   const componentNodes = [];
 
   for (let i = 0; i < children.length; i++) {
@@ -110,10 +117,11 @@ const parseChildren = (children, nodeProperties, nodeName, setName) => {
         children[i].type === 'COMPONENT_SET' ||
         children[i].type === 'GROUP' ||
         children[i].type === 'FRAME') {
-      const componentSetName =
-          children[i].type === 'COMPONENT_SET' ? children[i].name : setName;
       const result = parseNode(
-          children[i], nodeProperties, nodeName, componentSetName);
+          children[i],
+          nodeProperties,
+          nodeName,
+          isPropertyNames);
       if (result !== null) {
         componentNodes.push(result);
       }
@@ -124,7 +132,7 @@ const parseChildren = (children, nodeProperties, nodeName, setName) => {
 };
 
 // Parse fetched data
-const parseFileData = (response, nodeProperties) => {
+const parseFileData = (response, nodeProperties, isVarNames) => {
   if (response.status === 404) {
     console.log(warningTxt('The Figma file was not found.'));
     process.exit(9);
@@ -159,7 +167,8 @@ const parseFileData = (response, nodeProperties) => {
     });
     childNodes = childNodes.flat();
 
-    const iconNodes = parseChildren(childNodes, nodeProperties);
+    const iconNodes = parseChildren(
+        childNodes, nodeProperties, null, isVarNames);
     iconNodes.forEach((item) => {
       iconsData.push({
         id: item.id,
