@@ -1,6 +1,7 @@
 # Glypfig files
 storybook-static
 icon-library
+icon-library-alt
 
 # MacOSX
 .DS_Store
