@@ -62,33 +62,23 @@ const fetchFileDataFromAPI = async () => {
 };
 
 // Parse node for a component
-const parseNode = (
-    childNode, nodeProperties, nodeName, isPropertyNames) => {
+const parseNode = (childNode, nodeProperties, setName) => {
   if (childNode.type === 'COMPONENT') {
     // Don't include components without properties when filtering
     if (nodeProperties !== null && !childNode.name.includes('=')) {
       return null;
     }
 
-    // Only components with properties
+    // Discard components not in filter scope
+    const properties = childNode.name.replace(/\s/g, '').split(',');
+    if (nodeProperties !== null && nodeProperties.some(
+        (property) => properties.indexOf(property) === -1)) {
+      return null;
+    }
+
+    // Append component set name
     if (childNode.name.includes('=')) {
-      const properties = childNode.name.replace(/\s/g, '').split(',');
-
-      // Discard components not in filter scope
-      if (nodeProperties !== null && nodeProperties.some(
-          (property) => properties.indexOf(property) === -1)) {
-        return null;
-      }
-
-      // Use component set name or component set name with variant values
-      if (isPropertyNames) {
-        for (const property of properties) {
-          nodeName = nodeName +
-              '-' + property.toLowerCase().replace('=', '-');
-        }
-      }
-
-      childNode.name = nodeName;
+      childNode.setName = setName;
     }
 
     return childNode;
@@ -98,17 +88,19 @@ const parseNode = (
       childNode.type === 'GROUP' ||
       childNode.type === 'FRAME' &&
       childNode.children.length !== 0) {
+    const nodeSetName =
+        childNode.type === 'COMPONENT_SET' ? childNode.name : null;
     return parseChildren(
         childNode.children,
         nodeProperties,
         childNode.name,
-        isPropertyNames);
+        nodeSetName);
   }
 };
 
 // Parse list of nodes
 const parseChildren = (
-    children, nodeProperties, nodeName, isPropertyNames) => {
+    children, nodeProperties, nodeName, setName) => {
   const componentNodes = [];
 
   for (let i = 0; i < children.length; i++) {
@@ -121,7 +113,7 @@ const parseChildren = (
           children[i],
           nodeProperties,
           nodeName,
-          isPropertyNames);
+          setName);
       if (result !== null) {
         componentNodes.push(result);
       }
@@ -132,7 +124,7 @@ const parseChildren = (
 };
 
 // Parse fetched data
-const parseFileData = (response, nodeProperties, isVarNames) => {
+const parseFileData = (response, nodeProperties, isPropertyNames) => {
   if (response.status === 404) {
     console.log(warningTxt('The Figma file was not found.'));
     process.exit(9);
@@ -167,14 +159,60 @@ const parseFileData = (response, nodeProperties, isVarNames) => {
     });
     childNodes = childNodes.flat();
 
-    const iconNodes = parseChildren(
-        childNodes, nodeProperties, null, isVarNames);
+    // Filter components from data
+    const iconNodes = parseChildren(childNodes, nodeProperties, null);
+
+    // Construct icon object from data
+    const nameMap = new Map();
     iconNodes.forEach((item) => {
+      let iconName = item.name;
+      let iconProperties = null;
+
+      // Only rename components with properties
+      if (item.name.includes('=')) {
+        const properties = item.name.replace(/\s/g, '').split(',');
+        const nodeProperties =
+            properties.map((property) => property.split('='));
+        iconProperties = Object.fromEntries(nodeProperties);
+
+        // Use component set name with numbering or
+        // component set name with property values
+        iconName = item.setName;
+        if (!isPropertyNames) {
+          nameMap.set(item.setName, (nameMap.get(item.setName) || 0) + 1);
+        } else {
+          Object.entries(iconProperties).forEach((property) => {
+            iconName +=
+                '-' +
+                property[0].toLowerCase() +
+                '-' +
+                property[1].toLowerCase();
+          });
+        }
+      }
+
       iconsData.push({
         id: item.id,
         name: item.name,
+        iconName: iconName,
+        properties: iconProperties,
       });
     });
+
+    // Rename duplicates with numbering
+    if (!isPropertyNames) {
+      nameMap.forEach((value, key) => {
+        if (value > 1) {
+          let count = 0;
+          iconsData.forEach((item) => {
+            if (key === item.iconName) {
+              count++;
+              item.iconName += '-' + count;
+            }
+          });
+        }
+      });
+    }
 
     if (isLogging) {
       console.log(`Found ${iconsData.length} components from node on page ` +
@@ -281,12 +319,12 @@ const downloadAssetFilesData = async (iconNodes) => {
                 nodeItem.jpgUrl, FIGMA_API_HEADERS_FOR_BINARY_FILES);
             nodeItem.jpg = jpgFileResponse.data;
             if (isLogging) {
-              console.log(`Downloaded ${nodeItem.name}.jpg`);
+              console.log(`Downloaded ${nodeItem.iconName}.jpg`);
             }
           } catch {
             console.log(
                 errorTxt(
-                    `Failed downloading image file: ${nodeItem.name}.jpg`));
+                    `Failed downloading image file: ${nodeItem.iconName}.jpg`));
             process.exit(9);
           }
         }
@@ -297,12 +335,12 @@ const downloadAssetFilesData = async (iconNodes) => {
                 nodeItem.pngUrl, FIGMA_API_HEADERS_FOR_BINARY_FILES);
             nodeItem.png = pngFileResponse.data;
             if (isLogging) {
-              console.log(`Downloaded ${nodeItem.name}.png`);
+              console.log(`Downloaded ${nodeItem.iconName}.png`);
             }
           } catch {
             console.log(
                 errorTxt(
-                    `Failed downloading image file: ${nodeItem.name}.png`));
+                    `Failed downloading image file: ${nodeItem.iconName}.png`));
             process.exit(9);
           }
         }
@@ -313,12 +351,12 @@ const downloadAssetFilesData = async (iconNodes) => {
                 nodeItem.svgUrl, FIGMA_API_HEADERS);
             nodeItem.svg = svgFileResponse.data;
             if (isLogging) {
-              console.log(`Downloaded ${nodeItem.name}.svg`);
+              console.log(`Downloaded ${nodeItem.iconName}.svg`);
             }
           } catch (err) {
             console.log(
                 errorTxt(
-                    `Failed downloading image file: ${nodeItem.name}.svg`));
+                    `Failed downloading image file: ${nodeItem.iconName}.svg`));
             process.exit(9);
           }
         }
@@ -329,12 +367,12 @@ const downloadAssetFilesData = async (iconNodes) => {
                 nodeItem.pdfUrl, FIGMA_API_HEADERS);
             nodeItem.pdf = pdfFileResponse.data;
             if (isLogging) {
-              console.log(`Downloaded ${nodeItem.name}.pdf`);
+              console.log(`Downloaded ${nodeItem.iconName}.pdf`);
             }
           } catch {
             console.log(
                 errorTxt(
-                    `Failed downloading image file: ${nodeItem.name}.pdf`));
+                    `Failed downloading image file: ${nodeItem.iconName}.pdf`));
             process.exit(9);
           }
         }

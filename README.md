@@ -62,13 +62,13 @@ It is suggested to run a linter on build components such as [Prettier](https://p
 | Template formats  | template, t    | string  | jsx                       | jsx and tsx                                                  |
 | CSS template path | csspath, c     | string  | ./templates/css.eta       | e.g. ./the-path/to/your-template-css.eta                     |
 | JS template path  | jspath, j      | string  | ./templates/react-jsx.eta | e.g. ./the-path/to/your-template-tsx.eta                     |
-| CSS prefix        | cssprefix, r   | string  | icon-                     | e.g "glypfig-"                                               |
-| JS prefix         | jsprefix, e    | string  | Icon                      | e.g. "Glypfig"                                               |
-| License file      | license, l     | string  | ./templates/LICENSE.txt   | Pass empty for default, e.g. ./the-path/to/your-license-file |
+| CSS prefix        | cssprefix, r   | string  | icon-                     | e.g. 'glypfig-'                                              |
+| JS prefix         | jsprefix, e    | string  | Icon                      | e.g. 'Glypfig'                                               |
+| License file      | license, l     | string  | ./templates/LICENSE.txt   | Pass '' for default or e.g. ./the-path/to/your-license-file  |
 | JPG image scale   | jpgscale, b    | string  | None                      | Scale of exported image 0.01 - 4                             |
 | PNG image scale   | pngscale, d    | string  | None                      | Scale of exported image 0.01 - 4                             |
 | Properties filter | filter, i      | string  | None                      | Filter components by properties e.g. 'Size=XS, Color=Blue'   |
-| Variants naming   | varnames, v    | boolean | None                      | Figma component properties in name e.g. icon-size-large.svg  |
+| Property naming   | propnames, m   | boolean | None                      | Figma component properties in name e.g. icon-size-large.svg  |
 | Help              | help, h        | boolean | None                      | Show help                                                    |
 
 ## More

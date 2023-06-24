@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {access, readFile, rm} from 'node:fs/promises';
+import {rmSync} from 'node:fs';
+import {access, readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {before, describe, it} from 'node:test';
 
@@ -21,10 +22,10 @@ describe('Paths run', () => {
       resolve(process.cwd(), 'icon-library-alt/react/jsx/IconCompany.jsx');
   const LICENSE_FILE_PATH = resolve(process.cwd(), 'icon-library-alt/LICENSE');
 
-  before(async () => {
-    await rm(DEFAULT_OUTPUT_DIR,
+  before(() => {
+    rmSync(DEFAULT_OUTPUT_DIR,
         {recursive: true, force: true});
-    spawnSync('node',
+    const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
           '--apikey', APIKEY,
@@ -37,8 +38,12 @@ describe('Paths run', () => {
           '--license', './LICENSE',
         ],
         {
+          encoding: 'utf8',
           shell: true,
         });
+    if (child.output[2]) {
+      console.log(child.output[2]);
+    }
   });
 
   it('Creates build at custom path', async () => {
@@ -70,5 +75,36 @@ describe('Paths run', () => {
 
   it('Copies custom license file', async () => {
     assert.ifError(await access(LICENSE_FILE_PATH));
+  });
+});
+
+describe('Default license file run', () => {
+  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
+  const DEFAULT_LICENSE_FILE_PATH =
+      resolve(process.cwd(), 'icon-library/LICENSE.txt');
+
+  before(() => {
+    rmSync(DEFAULT_OUTPUT_DIR,
+        {recursive: true, force: true});
+    const child = spawnSync('node',
+        [
+          resolve(process.cwd(), '.'),
+          '--apikey', APIKEY,
+          '--filekey', FILEKEY,
+          '--nodeid', '0:1',
+          '--format', 'png',
+          '--license', '\'\'',
+        ],
+        {
+          encoding: 'utf8',
+          shell: true,
+        });
+    if (child.output[2]) {
+      console.log(child.output[2]);
+    }
+  });
+
+  it('Creates license file in output directory', async () => {
+    assert.ifError(await access(DEFAULT_LICENSE_FILE_PATH));
   });
 });

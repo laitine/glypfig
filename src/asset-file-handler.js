@@ -24,14 +24,14 @@ const writeAssetDataToFile = async (iconsData, outputDir) => {
           try {
             await mkdir(join(outputDir, 'jpg'), {recursive: true});
 
-            const filePath = outputDir + '/jpg/' + nodeItem.name + '.jpg';
+            const filePath = outputDir + '/jpg/' + nodeItem.iconName + '.jpg';
             await writeFile(filePath,
                 Buffer.from(nodeItem.jpg), {encoding: 'utf8'});
             nodeItem.jpgFilePath = filePath;
           } catch (err) {
             console.log(
                 errorTxt(
-                    `Failed writing ${nodeItem.name}.jpg to disk: ${err}`));
+                    `Failed writing ${nodeItem.iconName}.jpg to disk: ${err}`));
             process.exit(9);
           }
         }
@@ -40,14 +40,14 @@ const writeAssetDataToFile = async (iconsData, outputDir) => {
           try {
             await mkdir(join(outputDir, 'png'), {recursive: true});
 
-            const filePath = outputDir + '/png/' + nodeItem.name + '.png';
+            const filePath = outputDir + '/png/' + nodeItem.iconName + '.png';
             await writeFile(filePath,
                 Buffer.from(nodeItem.png), {encoding: 'utf8'});
             nodeItem.pngFilePath = filePath;
           } catch (err) {
             console.log(
                 errorTxt(
-                    `Failed writing ${nodeItem.name}.png to disk: ${err}`));
+                    `Failed writing ${nodeItem.iconName}.png to disk: ${err}`));
             process.exit(9);
           }
         }
@@ -56,13 +56,13 @@ const writeAssetDataToFile = async (iconsData, outputDir) => {
           try {
             await mkdir(join(outputDir, 'pdf'), {recursive: true});
 
-            const filePath = outputDir + '/pdf/' + nodeItem.name + '.pdf';
+            const filePath = outputDir + '/pdf/' + nodeItem.iconName + '.pdf';
             await writeFile(filePath, nodeItem.pdf, {encoding: 'utf8'});
             nodeItem.pdfFilePath = filePath;
           } catch (err) {
             console.log(
                 errorTxt(
-                    `Failed writing ${nodeItem.name}.pdf to disk: ${err}`));
+                    `Failed writing ${nodeItem.iconName}.pdf to disk: ${err}`));
             process.exit(9);
           }
         }
@@ -71,13 +71,13 @@ const writeAssetDataToFile = async (iconsData, outputDir) => {
           try {
             await mkdir(join(outputDir, 'svg'), {recursive: true});
 
-            const filePath = outputDir + '/svg/' + nodeItem.name + '.svg';
+            const filePath = outputDir + '/svg/' + nodeItem.iconName + '.svg';
             await writeFile(filePath, nodeItem.svg, {encoding: 'utf8'});
             nodeItem.svgFilePath = filePath;
           } catch (err) {
             console.log(
                 errorTxt(
-                    `Failed writing ${nodeItem.name}.svg to disk: ${err}`));
+                    `Failed writing ${nodeItem.iconName}.svg to disk: ${err}`));
             process.exit(9);
           }
         }
@@ -151,8 +151,7 @@ const createLicense = async (licensePath, outputDir, isLogging) => {
 
   const licenseFilePath = licensePath === '' ?
       DEFAULT_LICENSE_PATH : resolve(process.cwd(), licensePath);
-  const licenseFilename = typeof licensePath === '' ?
-      LICENSE_FILENAME : basename(licenseFilePath);
+  const licenseFilename = basename(licenseFilePath);
   const licenseOutputPath = join(outputDir, licenseFilename);
 
   try {

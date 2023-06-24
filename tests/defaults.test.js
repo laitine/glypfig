@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {access, readdir, rm} from 'node:fs/promises';
+import {rmSync} from 'node:fs';
+import {access, readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {before, describe, it} from 'node:test';
 
@@ -13,10 +14,10 @@ describe('Default run', () => {
   const DEFAULT_REACT_JSX_DIR =
       resolve(process.cwd(), 'icon-library/react/jsx');
 
-  before(async () => {
-    await rm(DEFAULT_OUTPUT_DIR,
+  before(() => {
+    rmSync(DEFAULT_OUTPUT_DIR,
         {recursive: true, force: true});
-    spawnSync('node',
+    const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
           '--apikey', APIKEY,
@@ -24,8 +25,12 @@ describe('Default run', () => {
           '--nodeid', '0:1',
         ],
         {
+          encoding: 'utf8',
           shell: true,
         });
+    if (child.output[2]) {
+      console.log(child.output[2]);
+    }
   });
 
   it('Creates build directory', async () => {
@@ -45,7 +50,8 @@ describe('Default run', () => {
           [
             'company.png',
             'entrepreneur.png',
-            'family.png',
+            'family-1.png',
+            'family-2.png',
             'mover.png',
             'senior.png',
             'traveler.png',
@@ -63,7 +69,8 @@ describe('Default run', () => {
           [
             'company.svg',
             'entrepreneur.svg',
-            'family.svg',
+            'family-1.svg',
+            'family-2.svg',
             'mover.svg',
             'senior.svg',
             'traveler.svg',
@@ -81,7 +88,8 @@ describe('Default run', () => {
           [
             'IconCompany.jsx',
             'IconEntrepreneur.jsx',
-            'IconFamily.jsx',
+            'IconFamily1.jsx',
+            'IconFamily2.jsx',
             'IconMover.jsx',
             'IconSenior.jsx',
             'IconTraveler.jsx',

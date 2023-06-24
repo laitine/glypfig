@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {access, readdir, rm} from 'node:fs/promises';
+import {rmSync} from 'node:fs';
+import {access, readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {before, describe, it} from 'node:test';
 
@@ -16,10 +17,10 @@ describe('Formats run', () => {
   const DEFAULT_REACT_TSX_DIR =
       resolve(process.cwd(), 'icon-library/react/tsx');
 
-  before(async () => {
-    await rm(DEFAULT_OUTPUT_DIR,
+  before(() => {
+    rmSync(DEFAULT_OUTPUT_DIR,
         {recursive: true, force: true});
-    spawnSync('node',
+    const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
           '--apikey', APIKEY,
@@ -29,8 +30,12 @@ describe('Formats run', () => {
           '--template', 'tsx',
         ],
         {
+          encoding: 'utf8',
           shell: true,
         });
+    if (child.output[2]) {
+      console.log(child.output[2]);
+    }
   });
 
   it('Creates builds in all formats', async () => {
@@ -49,7 +54,8 @@ describe('Formats run', () => {
           [
             'company.jpg',
             'entrepreneur.jpg',
-            'family.jpg',
+            'family-1.jpg',
+            'family-2.jpg',
             'mover.jpg',
             'senior.jpg',
             'traveler.jpg',
@@ -67,7 +73,8 @@ describe('Formats run', () => {
           [
             'company.pdf',
             'entrepreneur.pdf',
-            'family.pdf',
+            'family-1.pdf',
+            'family-2.pdf',
             'mover.pdf',
             'senior.pdf',
             'traveler.pdf',
@@ -85,7 +92,8 @@ describe('Formats run', () => {
           [
             'icon-company.css',
             'icon-entrepreneur.css',
-            'icon-family.css',
+            'icon-family-1.css',
+            'icon-family-2.css',
             'icon-mover.css',
             'icon-senior.css',
             'icon-traveler.css',
@@ -104,7 +112,8 @@ describe('Formats run', () => {
           [
             'IconCompany.tsx',
             'IconEntrepreneur.tsx',
-            'IconFamily.tsx',
+            'IconFamily1.tsx',
+            'IconFamily2.tsx',
             'IconMover.tsx',
             'IconSenior.tsx',
             'IconTraveler.tsx',

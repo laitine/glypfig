@@ -82,9 +82,9 @@ const options = {
     type: 'string',
     short: 'i',
   },
-  'varnames': {
+  'propnames': {
     type: 'boolean',
-    short: 'v',
+    short: 'm',
     default: false,
   },
   'help': {
@@ -127,8 +127,8 @@ const cssPrefix = typeof argValues.cssprefix === 'undefined' ?
 const jsPrefix = typeof argValues.jsprefix === 'undefined' ?
     null : argValues.jsprefix;
 
-const licensePath = typeof argValues.license === 'undefined' ?
-    null : argValues.license;
+const licensePath =
+    typeof argValues.license === 'undefined' ? null : argValues.license;
 
 const jpgScale = typeof argValues.jpgscale === 'undefined' ?
     null : argValues.jpgscale;
@@ -140,8 +140,8 @@ const propertiesFilters =
     typeof argValues.filter !== 'undefined' ?
     argValues.filter.replace(/\s/g, '').split(',') : null;
 
-const isVarNames = typeof argValues.varnames !== 'undefined' &&
-    argValues.varnames;
+const isPropNames = typeof argValues.propnames !== 'undefined' &&
+    argValues.propnames;
 
 const main = async () => {
   // Handle parameters
@@ -190,7 +190,7 @@ const main = async () => {
   const figmaData = await figmaApiHandler.fetchFileDataFromAPI();
 
   let iconNodeData = figmaApiHandler.parseFileData(figmaData,
-      propertiesFilters, isVarNames);
+      propertiesFilters, isPropNames);
 
   iconNodeData = await figmaApiHandler.combineNodeIDsWithAssetFileURLs(
       iconNodeData, outputFormatsToFetch, outputFormatScale);
@@ -206,9 +206,9 @@ const main = async () => {
   }
 
   // Build UI components
-  iconNodeData = await uiComponentBuilder.readComponentSVGData(iconNodeData);
-
   if (componentFormatsToBuild.length !== 0) {
+    iconNodeData = await uiComponentBuilder.readComponentSVGData(iconNodeData);
+
     for (const componentFormat of componentFormatsToBuild) {
       let templatePath = null;
       let prefix = null;

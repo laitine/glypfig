@@ -9,8 +9,8 @@ import {fileURLToPath} from 'node:url';
 import {errorTxt} from './logger.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const JS_DEFAULT_TEMPLATE_FORMAT = ['jsx'];
 const TEMPLATES_DIR = join(__dirname, '../templates');
+const JS_DEFAULT_TEMPLATE_FORMAT = ['jsx'];
 const CSS_TEMPLATE_PATH = join(TEMPLATES_DIR, 'css.eta');
 const CSS_PREFIX = 'icon-';
 const JSX_TEMPLATE_PATH = join(TEMPLATES_DIR, 'react-jsx.eta');
