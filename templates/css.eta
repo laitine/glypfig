@@ -1,4 +1,4 @@
 .css-icon--<%= it.componentCSSName %> {
-  -webkit-mask-image: url("data:image/svg+xml;utf8,<%= it.componentSVGEncoded %>");
-  mask-image: url("data:image/svg+xml;utf8,<%= it.componentSVGEncoded %>");
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
+  mask-image: url("data:image/svg+xml;charset=utf-8,<%= it.componentSVGDataEncoded %>");
 }

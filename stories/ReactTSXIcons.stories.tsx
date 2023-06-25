@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {IconCompany} from '../icon-library/react/IconCompany.tsx';
-import {IconEntrepreneur} from '../icon-library/react/IconEntrepreneur.tsx';
-import {IconFamily} from '../icon-library/react/IconFamily.tsx';
-import {IconMover} from '../icon-library/react/IconMover.tsx';
-import {IconSenior} from '../icon-library/react/IconSenior.tsx';
-import {IconTraveler} from '../icon-library/react/IconTraveler.tsx';
-import {IconYouth} from '../icon-library/react/IconYouth.tsx';
+import {IconCompany} from '../icon-library/react/tsx/IconCompany.tsx';
+import {IconEntrepreneur} from '../icon-library/react/tsx/IconEntrepreneur.tsx';
+import {IconFamily1} from '../icon-library/react/tsx/IconFamily1.tsx';
+import {IconFamily2} from '../icon-library/react/tsx/IconFamily2.tsx';
+import {IconMover} from '../icon-library/react/tsx/IconMover.tsx';
+import {IconSenior} from '../icon-library/react/tsx/IconSenior.tsx';
+import {IconTraveler} from '../icon-library/react/tsx/IconTraveler.tsx';
+import {IconYouth} from '../icon-library/react/tsx/IconYouth.tsx';
 
 import './icon-style.css';
 
@@ -50,11 +51,16 @@ export const TSX = ({...args}) => (
     <IconEntrepreneur size="m" {...args} />
     <IconEntrepreneur size="l" {...args} />
     <IconEntrepreneur size="xl" {...args} />
-    <IconFamily size="xs" {...args} />
-    <IconFamily size="s" {...args} />
-    <IconFamily size="m" {...args} />
-    <IconFamily size="l" {...args} />
-    <IconFamily size="xl" {...args} />
+    <IconFamily1 size="xs" {...args} />
+    <IconFamily1 size="s" {...args} />
+    <IconFamily1 size="m" {...args} />
+    <IconFamily1 size="l" {...args} />
+    <IconFamily1 size="xl" {...args} />
+    <IconFamily2 size="xs" {...args} />
+    <IconFamily2 size="s" {...args} />
+    <IconFamily2 size="m" {...args} />
+    <IconFamily2 size="l" {...args} />
+    <IconFamily2 size="xl" {...args} />
     <IconMover size="xs" {...args} />
     <IconMover size="s" {...args} />
     <IconMover size="m" {...args} />

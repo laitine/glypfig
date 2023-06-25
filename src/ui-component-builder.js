@@ -28,7 +28,8 @@ const readComponentSVGData = async (iconNodesData) => {
         const iconComponentData = {
           ...nodeItem,
           iconName: baseFilename,
-          componentSVGattributes: iconComponentSVG.attributes,
+          componentSVGData: iconComponentSVG.data,
+          componentSVGAttributes: iconComponentSVG.attributes,
           componentSVGContents: iconComponentSVG.contents,
         };
 
@@ -40,11 +41,11 @@ const readComponentSVGData = async (iconNodesData) => {
 const parseComponentSVG = async (FilePath) => {
   // Parse SVG as string
   try {
-    let svgContents = await readFile(FilePath, 'utf8');
-    const $ = cheerio.load(svgContents);
+    let svgData = await readFile(FilePath, 'utf8');
+    const $ = cheerio.load(svgData);
     const svgElementAttributes = $('svg').get(0).attribs;
+    let svgContents = $('svg').html();
 
-    svgContents = $('svg').html();
     svgContents = svgContents
         .replaceAll(/fill=\"(none|.+?)\"/g,
             (match) => {
@@ -61,17 +62,29 @@ const parseComponentSVG = async (FilePath) => {
               } else {
                 return 'stroke="currentColor"';
               }
-            })
-        .replaceAll(/(?:\s)([\w]+-[\w]+)(?:=)/g,
-            (match) => {
-              const attributeName = camelcase(match);
-              return ' ' + attributeName;
-            })
-        .trim()
-        .concat('\n');
+            });
+
+    svgData = `<svg role="img"` +
+        `${svgElementAttributes.xmlns ?
+          ` xmlns="${svgElementAttributes.xmlns}"` :
+          ' xmlns="http://www.w3.org/2000/svg"'}` +
+        `${svgElementAttributes.viewBox ?
+          ` viewBox="${svgElementAttributes.viewBox}"` :
+          ' viewBox="http://www.w3.org/2000/svg"'}` +
+        `>${svgContents}</svg>`;
+
+    // convert attribute names to camelcase for React
+    svgContents = svgContents.replaceAll(/(?:\s)([\w]+-[\w]+)(?:=)/g,
+        (match) => {
+          const attributeName = camelcase(match);
+          return ' ' + attributeName;
+        })
+        .trim();
+
     return {
+      data: svgData,
       attributes: svgElementAttributes,
-      contents: svgContents,
+      contents: svgContents.concat('\n'),
     };
   } catch (err) {
     console.log(errorTxt(`Processing SVG data failed: ${err}`));
@@ -146,6 +159,21 @@ const generateComponentsIndex = async (
   await writeComponentToFile(indexPath, indexData, indexFilename);
 };
 
+const encodeSVGtoURL = (svgData) => {
+  return svgData
+      .replace(/%/g, '%25')
+      .replace(/</g, '%3C')
+      .replace(/>/g, '%3E')
+      .replace(/&/g, '%26')
+      .replace(/#/g, '%23')
+      .replace(/{/g, '%7B')
+      .replace(/}/g, '%7D')
+      .replace(/'/g, '%22')
+      .replace(/"/g, '\'')
+      .replace(/\s+/g, ' ')
+      .trim();
+};
+
 const createCSSComponents = async (
     iconNodesData, outputDir, iconComponentFormat, customTemplatePath, prefix,
 ) => {
@@ -172,7 +200,7 @@ const createCSSComponents = async (
           componentCSSName: iconComponentName,
           componentCSSPath: componentPath,
           componentCSSTemplate: iconComponentTemplatePath,
-          componentSVGEncoded: encodeURI(nodeItem.componentSVGContents),
+          componentSVGDataEncoded: encodeSVGtoURL(nodeItem.componentSVGData),
         };
 
         const iconComponentContents =
