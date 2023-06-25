@@ -200,6 +200,8 @@ const main = async () => {
   iconNodeData = await assetFileHandler.writeAssetDataToFile(
       iconNodeData, outputPath);
 
+  iconNodeData.sort((a, b) => a.iconName.localeCompare(b.iconName));
+
   // Optimize image assets
   if (isOptimized) {
     await assetFileHandler.optimizeAssetFiles(outputPath, isLogging);

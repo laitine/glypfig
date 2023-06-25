@@ -21,6 +21,9 @@ describe('Logging run', () => {
           encoding: 'utf8',
           shell: true,
         });
+    if (child.output[2]) {
+      console.log(child.output[2]);
+    }
   });
 
   it('Logging stays silent', () => {
@@ -41,6 +44,9 @@ describe('Help run', () => {
           encoding: 'utf8',
           shell: true,
         });
+    if (child.output[2]) {
+      console.log(child.output[2]);
+    }
   });
 
   it('Prints manual', () => {

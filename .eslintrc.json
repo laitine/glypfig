@@ -21,7 +21,10 @@
             }
         },
         {
-            "files": "./templates/*.eta",
+            "files": [
+                "./templates/*.eta",
+                "./tests/*.eta"
+            ],
             "processor": "eta/eta"
         }
     ],

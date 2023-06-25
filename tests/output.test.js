@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {rmSync} from 'node:fs';
+import {rmSync, statSync} from 'node:fs';
 import {readdir, readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {before, describe, it} from 'node:test';
@@ -10,6 +10,8 @@ import {APIKEY, FILEKEY} from './.keys.js';
 describe('JPG output run', () => {
   const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_JPG_DIR = resolve(process.cwd(), 'icon-library/jpg');
+  const JPG_ICON_FILE_PATH =
+      resolve(process.cwd(), 'icon-library/jpg/company.jpg');
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR,
@@ -52,18 +54,16 @@ describe('JPG output run', () => {
     }
   });
 
-  it('Files scaled to custom size', async () => {
-    // TODO
-  });
-
-  it('Files optimized', async () => {
-    // TODO
+  it('File is optimized and scaled to custom size', () => {
+    assert.equal(3230, statSync(JPG_ICON_FILE_PATH).size);
   });
 });
 
 describe('PNG output run', () => {
   const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_PNG_DIR = resolve(process.cwd(), 'icon-library/png');
+  const PNG_ICON_FILE_PATH =
+      resolve(process.cwd(), 'icon-library/png/company.png');
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR,
@@ -106,18 +106,16 @@ describe('PNG output run', () => {
     }
   });
 
-  it('Files scaled to custom size', async () => {
-    // TODO
-  });
-
-  it('Files optimized', async () => {
-    // TODO
+  it('File is optimized and scaled to custom size', () => {
+    assert.equal(535, statSync(PNG_ICON_FILE_PATH).size);
   });
 });
 
 describe('SVG output run', () => {
   const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_SVG_DIR = resolve(process.cwd(), 'icon-library/svg');
+  const SVG_ICON_FILE_PATH =
+      resolve(process.cwd(), 'icon-library/png/company.png');
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR,
@@ -159,14 +157,16 @@ describe('SVG output run', () => {
     }
   });
 
-  it('Files optimized', async () => {
-    // TODO
+  it('File is optimized', () => {
+    assert.equal(304, statSync(SVG_ICON_FILE_PATH).size);
   });
 });
 
 describe('PDF output run', () => {
   const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_PDF_DIR = resolve(process.cwd(), 'icon-library/pdf');
+  const PDF_ICON_FILE_PATH =
+      resolve(process.cwd(), 'icon-library/pdf/company.pdf');
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR,
@@ -206,11 +206,19 @@ describe('PDF output run', () => {
       console.error(err);
     }
   });
+
+  it('File has expected contents', () => {
+    assert.equal(1561, statSync(PDF_ICON_FILE_PATH).size);
+  });
 });
 
 describe('CSS output run', () => {
   const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_CSS_DIR = resolve(process.cwd(), 'icon-library/css');
+  const CSS_ICON_FILE_PATH =
+      resolve(process.cwd(), 'icon-library/css/mock-company.css');
+  const CSS_INDEX_FILE_PATH =
+      resolve(process.cwd(), 'icon-library/css/icons.css');
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR,
@@ -233,7 +241,7 @@ describe('CSS output run', () => {
     }
   });
 
-  it('Creates css icon files', async () => {
+  it('Creates prefixed css icon files', async () => {
     try {
       const cssFiles = await readdir(DEFAULT_CSS_DIR);
       assert.deepEqual(cssFiles,
@@ -253,8 +261,15 @@ describe('CSS output run', () => {
     }
   });
 
+  it('File has expected contents', () => {
+    assert.equal(920, statSync(CSS_ICON_FILE_PATH).size);
+  });
+
   it('File index names are prefixed', async () => {
-    // TODO
+    const importChars =
+        await readFile(CSS_INDEX_FILE_PATH, 'utf8');
+    const importSlug = importChars.substring(0, 32);
+    assert.equal(importSlug, '@import url(\"mock-company.css\")\;');
   });
 });
 
@@ -288,7 +303,7 @@ describe('REACT output run', () => {
     }
   });
 
-  it('Creates react icon files', async () => {
+  it('Creates prefixed react icon files', async () => {
     try {
       const reactFiles = await readdir(DEFAULT_REACT_JSX_DIR);
       assert.deepEqual(reactFiles,
@@ -315,10 +330,14 @@ describe('REACT output run', () => {
     assert.equal(jsSlug, 'MockCompany');
   });
 
+  it('Component has expected contents', () => {
+    assert.equal(956, statSync(JS_ICON_FILE_PATH).size);
+  });
+
   it('File index names are prefixed', async () => {
     const exportChars =
         await readFile(JS_INDEX_FILE_PATH, 'utf8');
-    const exportSlug = exportChars.substring(0, 41);
-    assert.equal(exportSlug, 'export {MockCompany} from \'./MockCompany\'');
+    const exportSlug = exportChars.substring(0, 42);
+    assert.equal(exportSlug, 'export {MockCompany} from \'./MockCompany\'\;');
   });
 });

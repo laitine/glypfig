@@ -66,6 +66,44 @@ describe('Formats run', () => {
     }
   });
 
+  it('Creates png files', async () => {
+    try {
+      const pngFiles = await readdir(DEFAULT_PNG_DIR);
+      assert.deepEqual(pngFiles,
+          [
+            'company.png',
+            'entrepreneur.png',
+            'family-1.png',
+            'family-2.png',
+            'mover.png',
+            'senior.png',
+            'traveler.png',
+            'youth.png',
+          ]);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  it('Creates svg files', async () => {
+    try {
+      const svgFiles = await readdir(DEFAULT_SVG_DIR);
+      assert.deepEqual(svgFiles,
+          [
+            'company.svg',
+            'entrepreneur.svg',
+            'family-1.svg',
+            'family-2.svg',
+            'mover.svg',
+            'senior.svg',
+            'traveler.svg',
+            'youth.svg',
+          ]);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
   it('Creates pdf files', async () => {
     try {
       const pdfFiles = await readdir(DEFAULT_PDF_DIR);

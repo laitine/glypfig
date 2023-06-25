@@ -104,7 +104,7 @@ describe('Default license file run', () => {
     }
   });
 
-  it('Creates license file in output directory', async () => {
+  it('Creates default license file in output directory', async () => {
     assert.ifError(await access(DEFAULT_LICENSE_FILE_PATH));
   });
 });

@@ -81,7 +81,7 @@ describe('Default run', () => {
     }
   });
 
-  it('Creates react files', async () => {
+  it('Creates react files in jsx', async () => {
     try {
       const reactFiles = await readdir(DEFAULT_REACT_JSX_DIR);
       assert.deepEqual(reactFiles,
