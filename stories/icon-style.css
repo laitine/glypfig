@@ -2,8 +2,8 @@
     display: grid;
     width: 400px;
     height: 300px;
-    grid-template-columns: repeat(5, 64px);
-    grid-template-rows: repeat(7, 64px);
+    grid-template-columns: repeat(5, fit-content(68px));
+    grid-template-rows: repeat(7, 68px);
     grid-gap: 10px;
 }
 
@@ -11,8 +11,8 @@
     display: grid;
     width: 400px;
     height: 300px;
-    grid-template-columns: repeat(7, 64px);
-    grid-template-rows: repeat(1, 64px);
+    grid-template-columns: repeat(8, fit-content(68px));
+    grid-template-rows: repeat(1, fit-content(68px));
     grid-gap: 10px;
 }
 
@@ -28,4 +28,24 @@
     -webkit-mask-size: auto;
     mask-size: auto;
     width: var(--icon-size);
+}
+
+.css-icon.css-icon--size-xs {
+    --icon-size: 1.5rem;
+}
+
+.css-icon.css-icon--size-s {
+    --icon-size: 2rem;
+}
+
+.css-icon.css-icon--size-m {
+    --icon-size: 3rem;
+}
+
+.css-icon.css-icon--size-l {
+    --icon-size: 4rem;
+}
+
+.css-icon.css-icon--size-xl {
+    --icon-size: 6rem;
 }
