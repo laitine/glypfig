@@ -17,7 +17,7 @@ const JSX_TEMPLATE_FILENAME = 'react-jsx.eta';
 const TSX_TEMPLATE_FILENAME = 'react-tsx.eta';
 const JS_PREFIX = 'Icon';
 
-const eta = new Eta({
+let eta = new Eta({
   autoEscape: false,
   views: TEMPLATES_DIR,
 });
@@ -183,7 +183,10 @@ const createCSSComponents = async (
   let templateFilename = CSS_TEMPLATE_FILENAME;
   if (customTemplatePath !== null) {
     customTemplatePath = resolve(process.cwd(), customTemplatePath);
-    eta.config({views: dirname(customTemplatePath)});
+    eta = new Eta({
+      autoEscape: false,
+      views: dirname(customTemplatePath),
+    });
     templateFilename = basename(customTemplatePath);
   }
 
@@ -232,7 +235,10 @@ const createJSComponents = async (
     }
   } else {
     customTemplatePath = resolve(process.cwd(), customTemplatePath);
-    eta.config({views: dirname(customTemplatePath)});
+    eta = new Eta({
+      autoEscape: false,
+      views: dirname(customTemplatePath),
+    });
     templateFilename = basename(customTemplatePath);
   }
 
