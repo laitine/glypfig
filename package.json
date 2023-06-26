@@ -64,6 +64,7 @@
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
     "babel-loader": "^9.1.2",
+    "dotenv": "^16.3.1",
     "eslint": ">=5.16.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-eta": "^0.1.0",

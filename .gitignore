@@ -114,5 +114,5 @@ dist
 # TernJS port file
 .tern-port
 
-# Testing
-tests/.keys.js
+# Environment
+.env

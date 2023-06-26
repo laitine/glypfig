@@ -1,11 +1,10 @@
+import 'dotenv/config';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {rmSync} from 'node:fs';
 import {access, readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {before, describe, it} from 'node:test';
-
-import {APIKEY, FILEKEY} from './.keys.js';
 
 describe('Paths run', () => {
   const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library-alt');
@@ -28,9 +27,9 @@ describe('Paths run', () => {
     const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
-          '--apikey', APIKEY,
-          '--filekey', FILEKEY,
-          '--nodeid', '0:1',
+          '--apikey', process.env.FIGMA_API_KEY,
+          '--filekey', process.env.FIGMA_FILE_KEY,
+          '--nodeid', process.env.FIGMA_NODE_ID,
           '--format', 'jpg,png,svg,pdf,css,react',
           '--output', './icon-library-alt',
           '--csspath', './tests/css-mock-template.eta',
@@ -89,9 +88,9 @@ describe('Default license file run', () => {
     const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
-          '--apikey', APIKEY,
-          '--filekey', FILEKEY,
-          '--nodeid', '0:1',
+          '--apikey', process.env.FIGMA_API_KEY,
+          '--filekey', process.env.FIGMA_FILE_KEY,
+          '--nodeid', process.env.FIGMA_NODE_ID,
           '--format', 'png',
           '--license', '\'\'',
         ],

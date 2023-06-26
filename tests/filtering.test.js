@@ -1,11 +1,10 @@
+import 'dotenv/config';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {rmSync} from 'node:fs';
 import {readdir, readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {before, describe, it} from 'node:test';
-
-import {APIKEY, FILEKEY} from './.keys.js';
 
 describe('Multiple with same name run', () => {
   const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
@@ -24,9 +23,9 @@ describe('Multiple with same name run', () => {
     const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
-          '--apikey', APIKEY,
-          '--filekey', FILEKEY,
-          '--nodeid', '0:1',
+          '--apikey', process.env.FIGMA_API_KEY,
+          '--filekey', process.env.FIGMA_FILE_KEY,
+          '--nodeid', process.env.FIGMA_NODE_ID,
           '--format', 'react',
         ],
         {
@@ -100,9 +99,9 @@ describe('Multiple with same name using property names run', () => {
     const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
-          '--apikey', APIKEY,
-          '--filekey', FILEKEY,
-          '--nodeid', '0:1',
+          '--apikey', process.env.FIGMA_API_KEY,
+          '--filekey', process.env.FIGMA_FILE_KEY,
+          '--nodeid', process.env.FIGMA_NODE_ID,
           '--format', 'react',
           '--propnames',
         ],
@@ -173,9 +172,9 @@ describe('Single filter output run', () => {
     const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
-          '--apikey', APIKEY,
-          '--filekey', FILEKEY,
-          '--nodeid', '0:1',
+          '--apikey', process.env.FIGMA_API_KEY,
+          '--filekey', process.env.FIGMA_FILE_KEY,
+          '--nodeid', process.env.FIGMA_NODE_ID,
           '--format', 'react',
           '--filter', 'Color=Default',
         ],
@@ -214,9 +213,9 @@ describe('Single filter with property names output run', () => {
     const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
-          '--apikey', APIKEY,
-          '--filekey', FILEKEY,
-          '--nodeid', '0:1',
+          '--apikey', process.env.FIGMA_API_KEY,
+          '--filekey', process.env.FIGMA_FILE_KEY,
+          '--nodeid', process.env.FIGMA_NODE_ID,
           '--format', 'react',
           '--filter', 'Color=Default',
           '--propnames',
@@ -258,9 +257,9 @@ describe('Multiple filter output run', () => {
     const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
-          '--apikey', APIKEY,
-          '--filekey', FILEKEY,
-          '--nodeid', '0:1',
+          '--apikey', process.env.FIGMA_API_KEY,
+          '--filekey', process.env.FIGMA_FILE_KEY,
+          '--nodeid', process.env.FIGMA_NODE_ID,
           '--format', 'react',
           '--filter', 'Color=Default,Size=Regular',
         ],
@@ -298,9 +297,9 @@ describe('Multiple filter with property names output run', () => {
     const child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
-          '--apikey', APIKEY,
-          '--filekey', FILEKEY,
-          '--nodeid', '0:1',
+          '--apikey', process.env.FIGMA_API_KEY,
+          '--filekey', process.env.FIGMA_FILE_KEY,
+          '--nodeid', process.env.FIGMA_NODE_ID,
           '--format', 'react',
           '--filter', 'Color=Default,Size=Regular',
           '--propnames',

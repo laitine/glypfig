@@ -46,6 +46,10 @@ jobs:
           NODE_ID: ${{ secrets.FIGMA_NODE_ID }}
       - name: Run E2E tests
         run: yarn test
+        env:
+          FIGMA_API_KEY: ${{ secrets.FIGMA_API_KEY }}
+          FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+          FIGMA_NODE_ID: ${{ secrets.FIGMA_NODE_ID }}
       - name: Build Storybook
         run: yarn build-storybook
         env:

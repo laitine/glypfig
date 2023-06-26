@@ -1,9 +1,8 @@
+import 'dotenv/config';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {resolve} from 'node:path';
 import {before, describe, it} from 'node:test';
-
-import {APIKEY, FILEKEY} from './.keys.js';
 
 describe('Logging run', () => {
   let child = null;
@@ -12,9 +11,9 @@ describe('Logging run', () => {
     child = spawnSync('node',
         [
           resolve(process.cwd(), '.'),
-          '--apikey', APIKEY,
-          '--filekey', FILEKEY,
-          '--nodeid', '0:1',
+          '--apikey', process.env.FIGMA_API_KEY,
+          '--filekey', process.env.FIGMA_FILE_KEY,
+          '--nodeid', process.env.FIGMA_NODE_ID,
           '--silent',
         ],
         {

@@ -12,3 +12,4 @@ header.png
 yarn.lock
 *.log
 tests
+.env
