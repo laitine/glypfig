@@ -38,18 +38,18 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Install Glypfig
         run: yarn add glypfig
-      - name: Run Glypfig
-        run: npx glypfig -a $API_KEY -k $FILE_KEY -n $NODE_ID -f jpg,png,svg,pdf,react -p -t jsx,tsx -l '' -b 2.66 -c 2.66
-        env:
-          API_KEY: ${{ secrets.FIGMA_API_KEY }}
-          FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
-          NODE_ID: ${{ secrets.FIGMA_NODE_ID }}
       - name: Run E2E tests
         run: yarn test
         env:
           FIGMA_API_KEY: ${{ secrets.FIGMA_API_KEY }}
           FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
           FIGMA_NODE_ID: ${{ secrets.FIGMA_NODE_ID }}
+      - name: Run Glypfig
+        run: npx glypfig -a $API_KEY -k $FILE_KEY -n $NODE_ID -f jpg,png,svg,pdf,react -p -t jsx,tsx -l '' -b 2.66 -c 2.66
+        env:
+          API_KEY: ${{ secrets.FIGMA_API_KEY }}
+          FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+          NODE_ID: ${{ secrets.FIGMA_NODE_ID }}
       - name: Build Storybook
         run: yarn build-storybook
         env:
