@@ -114,7 +114,7 @@ describe('SVG output run', () => {
   const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_SVG_DIR = resolve(process.cwd(), 'icon-library/svg');
   const SVG_ICON_FILE_PATH =
-      resolve(process.cwd(), 'icon-library/png/company.png');
+      resolve(process.cwd(), 'icon-library/svg/company.svg');
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR,
@@ -157,7 +157,7 @@ describe('SVG output run', () => {
   });
 
   it('File is optimized', () => {
-    assert.equal(304, statSync(SVG_ICON_FILE_PATH).size);
+    assert.equal(433, statSync(SVG_ICON_FILE_PATH).size);
   });
 });
 
