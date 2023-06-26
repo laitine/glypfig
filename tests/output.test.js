@@ -262,7 +262,7 @@ describe('CSS output run', () => {
   });
 
   it('File has expected contents', () => {
-    assert.equal(920, statSync(CSS_ICON_FILE_PATH).size);
+    assert.equal(1022, statSync(CSS_ICON_FILE_PATH).size);
   });
 
   it('File index names are prefixed', async () => {
@@ -326,12 +326,12 @@ describe('REACT output run', () => {
   it('Component name is prefixed', async () => {
     const jsChars =
         await readFile(JS_ICON_FILE_PATH, 'utf8');
-    const jsSlug = jsChars.substring(91, 102);
+    const jsSlug = jsChars.substring(94, 105);
     assert.equal(jsSlug, 'MockCompany');
   });
 
   it('Component has expected contents', () => {
-    assert.equal(956, statSync(JS_ICON_FILE_PATH).size);
+    assert.equal(959, statSync(JS_ICON_FILE_PATH).size);
   });
 
   it('File index names are prefixed', async () => {

@@ -63,8 +63,8 @@ describe('Multiple with same name run', () => {
         await readFile(JSX_ICON1_FILE_PATH, 'utf8');
     const jsxChars2 =
         await readFile(JSX_ICON2_FILE_PATH, 'utf8');
-    const jsxSlug1 = jsxChars1.substring(91, 102);
-    const jsxSlug2 = jsxChars2.substring(91, 102);
+    const jsxSlug1 = jsxChars1.substring(94, 105);
+    const jsxSlug2 = jsxChars2.substring(94, 105);
     assert.equal(jsxSlug1, 'IconFamily1');
     assert.equal(jsxSlug2, 'IconFamily2');
   });
@@ -140,8 +140,8 @@ describe('Multiple with same name using property names run', () => {
         await readFile(JSX_ICON1_FILE_PATH, 'utf8');
     const jsxChars2 =
         await readFile(JSX_ICON2_FILE_PATH, 'utf8');
-    const jsxSlug1 = jsxChars1.substring(91, 122);
-    const jsxSlug2 = jsxChars2.substring(91, 124);
+    const jsxSlug1 = jsxChars1.substring(94, 125);
+    const jsxSlug2 = jsxChars2.substring(94, 127);
     assert.equal(jsxSlug1, 'IconFamilyColorDefaultSizeLarge');
     assert.equal(jsxSlug2, 'IconFamilyColorDefaultSizeRegular');
   });
