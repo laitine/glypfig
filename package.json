@@ -36,11 +36,12 @@
   },
   "man": "./man/doc.1",
   "scripts": {
-    "lint": "yarn lint:cli && yarn lint:build && yarn lint:templates && lint:tests",
-    "lint:cli": "eslint --fix ./src/*.js",
-    "lint:build": "eslint --fix ./icon-library/react/*/*.{jsx,tsx}",
-    "lint:templates": "eslint --fix ./templates/*.eta",
-    "lint:tests": "eslint --fix ./tests/*.{eta,js}",
+    "lint": "yarn lint:cli && yarn lint:build && yarn lint:tests",
+    "lint:cli": "yarn prettier --write ./src/*.js && eslint --fix ./src/*.js",
+    "lint:js": "yarn prettier --write ./icon-library/react/*/*.{jsx,tsx} && eslint --fix ./icon-library/react/*/*.{jsx,tsx}",
+    "lint:css": "yarn prettier --write ./icon-library/css/*.css && stylelint --fix ./icon-library/css/*.css",
+    "lint:build": "yarn lint:js && yarn lint:css",
+    "lint:tests": "yarn prettier --write ./tests/*.js && eslint --fix ./tests/*.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "node --test --test-reporter spec --experimental-test-coverage tests/*.test.js && rm -rf ./icon-library ./icon-library-alt"
@@ -67,11 +68,14 @@
     "dotenv": "^16.3.1",
     "eslint": "8.43.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-eta": "^0.1.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-storybook": "^0.6.10",
+    "prettier": "2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook-css-modules": "^1.0.8",
+    "stylelint": "^15.9.0",
+    "stylelint-config-standard": "^33.0.0",
     "typescript": "4.9.4"
   },
   "dependencies": {

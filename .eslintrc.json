@@ -4,14 +4,12 @@
         "browser": true,
         "es2021": true
     },
-    "plugins": [
-        "eta"
-    ],
     "extends": [
         "google",
         "plugin:storybook/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-		"plugin:@typescript-eslint/recommended"
+		"plugin:@typescript-eslint/recommended",
+        "prettier"
     ],
     "overrides": [
         {
@@ -19,13 +17,6 @@
             "rules": {
                 "max-len": "off"
             }
-        },
-        {
-            "files": [
-                "./templates/*.eta",
-                "./tests/*.eta"
-            ],
-            "processor": "eta/eta"
         }
     ],
     "parserOptions": {
