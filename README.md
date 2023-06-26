@@ -3,7 +3,7 @@
 [![NPM](https://img.shields.io/npm/v/glypfig/latest?style=flat-square&logo=npm)](https://www.npmjs.com/package/glypfig)
 [![Patreon](https://img.shields.io/badge/Patreon-donate-blue?style=flat-square&logo=patreon)](https://www.patreon.com/Glypfig)
 [![Apache 2.0 license](https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square&logo=apache)](https://www.apache.org/licenses/LICENSE-2.0)
-![E2E tests](https://github.com/laitine/glypfig/actions/workflows/deploy-storybook.yml/badge.svg)
+![E2E tests and deploy](https://github.com/laitine/glypfig/actions/workflows/deploy-storybook.yml/badge.svg)
 
 The icon library workflow for Figma.
 

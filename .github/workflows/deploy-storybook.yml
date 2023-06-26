@@ -1,5 +1,5 @@
 # Workflow for deploying Storybook to GitHub Pages
-name: Deploy Storybook to Pages
+name: E2E tests and deploy
 
 on:
   # Runs on pushes targeting the default branch
