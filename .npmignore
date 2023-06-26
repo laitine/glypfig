@@ -13,3 +13,7 @@ yarn.lock
 *.log
 tests
 .env
+.prettierignore
+.prettierrc.json
+.stylelintrc.json
+CODE_OF_CONDUCT.md

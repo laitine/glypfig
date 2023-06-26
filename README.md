@@ -11,7 +11,7 @@ The icon library workflow for Figma.
 
 Picks up your existing icons from Figma and outputs them ready for production. Currently supported export formats include JPG, PDF, PNG, SVG, CSS and React (with typescript support). Can also optimize image assets and builds UI components according to your custom template.
 
-[Find an example with all formats here](https://laitine.github.io/glypfig/)
+[Find an example Storybook with all formats here](https://laitine.github.io/glypfig/)🚀
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@ For best results always have your icon component's main layer in Figma boxed wit
 
 ### Development notes
 
-It is suggested to run a linter on build components such as [Prettier](https://prettier.io/) and code analyser such as [ESLint](https://eslint.org/).
+It is suggested to run a linter on build components such as [Prettier](https://prettier.io/), [Stylelint](https://stylelint.io/) and code analyser such as [ESLint](https://eslint.org/).
 
 ## Get started
 
