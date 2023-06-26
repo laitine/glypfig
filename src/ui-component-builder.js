@@ -1,6 +1,6 @@
 import camelcase from 'camelcase';
 import * as cheerio from 'cheerio';
-import * as eta from 'eta';
+import {Eta} from 'eta';
 import {existsSync} from 'node:fs';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {basename, dirname, join, resolve} from 'node:path';
@@ -11,13 +11,16 @@ import {errorTxt} from './logger.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = join(__dirname, '../templates');
 const JS_DEFAULT_TEMPLATE_FORMAT = ['jsx'];
-const CSS_TEMPLATE_PATH = join(TEMPLATES_DIR, 'css.eta');
+const CSS_TEMPLATE_FILENAME = 'css.eta';
 const CSS_PREFIX = 'icon-';
-const JSX_TEMPLATE_PATH = join(TEMPLATES_DIR, 'react-jsx.eta');
-const TSX_TEMPLATE_PATH = join(TEMPLATES_DIR, 'react-tsx.eta');
+const JSX_TEMPLATE_FILENAME = 'react-jsx.eta';
+const TSX_TEMPLATE_FILENAME = 'react-tsx.eta';
 const JS_PREFIX = 'Icon';
 
-eta.configure({autoEscape: false});
+const eta = new Eta({
+  autoEscape: false,
+  views: TEMPLATES_DIR,
+});
 
 const readComponentSVGData = async (iconNodesData) => {
   return Promise.all(
@@ -96,7 +99,7 @@ const renderComponent = async (componentData, componentFormat) => {
   try {
     const componentTemplate =
         componentData[`component${componentFormat}Template`];
-    const componentContents = await eta.renderFile(
+    const componentContents = eta.render(
         componentTemplate,
         componentData,
     );
@@ -177,11 +180,12 @@ const encodeSVGtoURL = (svgData) => {
 const createCSSComponents = async (
     iconNodesData, outputDir, iconComponentFormat, customTemplatePath, prefix,
 ) => {
-  let templatePath = CSS_TEMPLATE_PATH;
+  let templateFilename = CSS_TEMPLATE_FILENAME;
   if (customTemplatePath !== null) {
-    templatePath = customTemplatePath;
+    customTemplatePath = resolve(process.cwd(), customTemplatePath);
+    eta.config({views: dirname(customTemplatePath)});
+    templateFilename = basename(customTemplatePath);
   }
-  const iconComponentTemplatePath = resolve(process.cwd(), templatePath);
 
   let namePrefix = CSS_PREFIX;
   if (prefix !== null) {
@@ -199,7 +203,7 @@ const createCSSComponents = async (
           ...nodeItem,
           componentCSSName: iconComponentName,
           componentCSSPath: componentPath,
-          componentCSSTemplate: iconComponentTemplatePath,
+          componentCSSTemplate: templateFilename,
           componentSVGDataEncoded: encodeSVGtoURL(nodeItem.componentSVGData),
         };
 
@@ -221,15 +225,16 @@ const createJSComponents = async (
     customTemplatePath,
     prefix,
 ) => {
-  let templatePath = JSX_TEMPLATE_PATH;
+  let templateFilename = JSX_TEMPLATE_FILENAME;
   if (customTemplatePath === null) {
     if (iconComponentFormat === 'tsx') {
-      templatePath = TSX_TEMPLATE_PATH;
+      templateFilename = TSX_TEMPLATE_FILENAME;
     }
   } else {
-    templatePath = customTemplatePath;
+    customTemplatePath = resolve(process.cwd(), customTemplatePath);
+    eta.config({views: dirname(customTemplatePath)});
+    templateFilename = basename(customTemplatePath);
   }
-  const iconComponentTemplatePath = resolve(process.cwd(), templatePath);
 
   let namePrefix = JS_PREFIX;
   if (prefix !== null) {
@@ -248,7 +253,7 @@ const createJSComponents = async (
           ...nodeItem,
           componentJSName: iconComponentName,
           componentJSPath: componentPath,
-          componentJSTemplate: iconComponentTemplatePath,
+          componentJSTemplate: templateFilename,
         };
 
         const iconComponentContents =
