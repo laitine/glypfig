@@ -38,7 +38,7 @@
   "scripts": {
     "lint": "yarn lint:cli && yarn lint:build && yarn lint:tests",
     "lint:cli": "yarn prettier --write ./src/*.js && eslint --fix ./src/*.js",
-    "lint:js": "yarn prettier --write ./icon-library/react/*/*.{jsx,tsx} && eslint --fix ./icon-library/react/*/*.{jsx,tsx}",
+    "lint:js": "yarn prettier --write ./icon-library/react/*/*.{jsx,js,tsx,ts} && eslint --fix ./icon-library/react/*/*.{jsx,js,tsx,ts}",
     "lint:css": "yarn prettier --write ./icon-library/css/*.css && stylelint --fix ./icon-library/css/*.css",
     "lint:build": "yarn lint:js && yarn lint:css",
     "lint:tests": "yarn prettier --write ./tests/*.js && eslint --fix ./tests/*.js",

@@ -68,14 +68,14 @@ const parseComponentSVG = async (FilePath) => {
     svgData =
       `<svg role="img"` +
       `${
-        typeof svgElementAttributes.xmlns !== 'undefined'
+        typeof svgElementAttributes.xmlns !== "undefined"
           ? ` xmlns="${svgElementAttributes.xmlns}"`
           : ' xmlns="http://www.w3.org/2000/svg"'
       }` +
       `${
-        typeof svgElementAttributes.viewBox !== 'undefined'
+        typeof svgElementAttributes.viewBox !== "undefined"
           ? ` viewBox="${svgElementAttributes.viewBox}"`
-          : ''
+          : ""
       }` +
       `>${svgContents}</svg>`;
 
