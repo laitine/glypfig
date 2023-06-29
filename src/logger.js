@@ -1,4 +1,4 @@
-import * as chalk from "chalk";
+import * as chalk from 'chalk';
 
 const boldTxt = chalk.default.bold;
 const warningTxt = chalk.default.yellow;

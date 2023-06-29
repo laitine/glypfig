@@ -1,21 +1,21 @@
-import camelcase from "camelcase";
-import * as cheerio from "cheerio";
-import { Eta } from "eta";
-import { existsSync } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { basename, dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import camelcase from 'camelcase';
+import * as cheerio from 'cheerio';
+import { Eta } from 'eta';
+import { existsSync } from 'node:fs';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { basename, dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { errorTxt } from "./logger.js";
+import { errorTxt } from './logger.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const TEMPLATES_DIR = join(__dirname, "../templates");
-const JS_DEFAULT_TEMPLATE_FORMAT = ["jsx"];
-const CSS_TEMPLATE_FILENAME = "css.eta";
-const CSS_PREFIX = "icon-";
-const JSX_TEMPLATE_FILENAME = "react-jsx.eta";
-const TSX_TEMPLATE_FILENAME = "react-tsx.eta";
-const JS_PREFIX = "Icon";
+const TEMPLATES_DIR = join(__dirname, '../templates');
+const JS_DEFAULT_TEMPLATE_FORMAT = ['jsx'];
+const CSS_TEMPLATE_FILENAME = 'css.eta';
+const CSS_PREFIX = 'icon-';
+const JSX_TEMPLATE_FILENAME = 'react-jsx.eta';
+const TSX_TEMPLATE_FILENAME = 'react-tsx.eta';
+const JS_PREFIX = 'Icon';
 
 let eta = new Eta({
   autoEscape: false,
@@ -25,7 +25,7 @@ let eta = new Eta({
 const readComponentSVGData = async (iconNodesData) => {
   return Promise.all(
     iconNodesData.map(async (nodeItem) => {
-      const baseFilename = basename(nodeItem.svgFilePath, ".svg");
+      const baseFilename = basename(nodeItem.svgFilePath, '.svg');
       const iconComponentSVG = await parseComponentSVG(nodeItem.svgFilePath);
 
       const iconComponentData = {
@@ -44,10 +44,10 @@ const readComponentSVGData = async (iconNodesData) => {
 const parseComponentSVG = async (FilePath) => {
   // Parse SVG as string
   try {
-    let svgData = await readFile(FilePath, "utf8");
+    let svgData = await readFile(FilePath, 'utf8');
     const $ = cheerio.load(svgData);
-    const svgElementAttributes = $("svg").get(0).attribs;
-    let svgContents = $("svg").html();
+    const svgElementAttributes = $('svg').get(0).attribs;
+    let svgContents = $('svg').html();
 
     svgContents = svgContents
       .replaceAll(/fill=\"(none|.+?)\"/g, (match) => {
@@ -68,14 +68,14 @@ const parseComponentSVG = async (FilePath) => {
     svgData =
       `<svg role="img"` +
       `${
-        typeof svgElementAttributes.xmlns !== "undefined"
+        typeof svgElementAttributes.xmlns !== 'undefined'
           ? ` xmlns="${svgElementAttributes.xmlns}"`
           : ' xmlns="http://www.w3.org/2000/svg"'
       }` +
       `${
-        typeof svgElementAttributes.viewBox !== "undefined"
+        typeof svgElementAttributes.viewBox !== 'undefined'
           ? ` viewBox="${svgElementAttributes.viewBox}"`
-          : ""
+          : ''
       }` +
       `>${svgContents}</svg>`;
 
@@ -83,14 +83,14 @@ const parseComponentSVG = async (FilePath) => {
     svgContents = svgContents
       .replaceAll(/(?:\s)([\w]+-[\w]+)(?:=)/g, (match) => {
         const attributeName = camelcase(match);
-        return " " + attributeName;
+        return ' ' + attributeName;
       })
       .trim();
 
     return {
       data: svgData,
       attributes: svgElementAttributes,
-      contents: svgContents.concat("\n"),
+      contents: svgContents.concat('\n'),
     };
   } catch (err) {
     console.log(errorTxt(`Processing SVG data failed: ${err}`));
@@ -120,7 +120,7 @@ const writeComponentToFile = async (
     if (!existsSync(dirpath)) {
       await mkdir(dirpath, { recursive: true });
     }
-    await writeFile(outputPath, componentContent, { encoding: "utf8" });
+    await writeFile(outputPath, componentContent, { encoding: 'utf8' });
   } catch (err) {
     console.log(
       errorTxt(`Failed writing ${componentFilename} to disk: ${err}`)
@@ -134,8 +134,8 @@ const createCSSImports = (iconNodesData) => {
     .map((nodeItem) => {
       return `@import url("${nodeItem.componentCSSName}.css");`;
     })
-    .join("\n")
-    .concat("\n");
+    .join('\n')
+    .concat('\n');
 };
 
 const createJSExports = (iconNodesData) => {
@@ -146,8 +146,8 @@ const createJSExports = (iconNodesData) => {
         `'./${nodeItem.componentJSName}';`
       );
     })
-    .join("\n")
-    .concat("\n");
+    .join('\n')
+    .concat('\n');
 };
 
 const generateComponentsIndex = async (
@@ -156,8 +156,8 @@ const generateComponentsIndex = async (
   format,
   isLogging
 ) => {
-  const name = format === "css" ? "icons" : "index";
-  const fileformat = format === "css" ? format : format.slice(0, -1);
+  const name = format === 'css' ? 'icons' : 'index';
+  const fileformat = format === 'css' ? format : format.slice(0, -1);
   const indexFilename = `${name}.${fileformat}`;
 
   if (isLogging) {
@@ -167,7 +167,7 @@ const generateComponentsIndex = async (
   const indexPath = join(`${outputDir}/${format}`, indexFilename);
 
   const indexData =
-    format === "css"
+    format === 'css'
       ? createCSSImports(iconNodesData)
       : createJSExports(iconNodesData);
 
@@ -176,16 +176,16 @@ const generateComponentsIndex = async (
 
 const encodeSVGtoURL = (svgData) => {
   return svgData
-    .replace(/%/g, "%25")
-    .replace(/</g, "%3C")
-    .replace(/>/g, "%3E")
-    .replace(/&/g, "%26")
-    .replace(/#/g, "%23")
-    .replace(/{/g, "%7B")
-    .replace(/}/g, "%7D")
-    .replace(/'/g, "%22")
+    .replace(/%/g, '%25')
+    .replace(/</g, '%3C')
+    .replace(/>/g, '%3E')
+    .replace(/&/g, '%26')
+    .replace(/#/g, '%23')
+    .replace(/{/g, '%7B')
+    .replace(/}/g, '%7D')
+    .replace(/'/g, '%22')
     .replace(/"/g, "'")
-    .replace(/\s+/g, " ")
+    .replace(/\s+/g, ' ')
     .trim();
 };
 
@@ -213,7 +213,7 @@ const createCSSComponents = async (
 
   return Promise.all(
     iconNodesData.map(async (nodeItem) => {
-      const baseFilename = basename(nodeItem.svgFilePath, ".svg");
+      const baseFilename = basename(nodeItem.svgFilePath, '.svg');
       const iconComponentName = namePrefix + baseFilename;
       const componentFilename = `${iconComponentName}.${iconComponentFormat}`;
       const componentPath = join(outputDir, componentFilename);
@@ -228,7 +228,7 @@ const createCSSComponents = async (
 
       const iconComponentContents = await renderComponent(
         iconComponentData,
-        "CSS"
+        'CSS'
       );
 
       await writeComponentToFile(
@@ -251,7 +251,7 @@ const createJSComponents = async (
 ) => {
   let templateFilename = JSX_TEMPLATE_FILENAME;
   if (customTemplatePath === null) {
-    if (iconComponentFormat === "tsx") {
+    if (iconComponentFormat === 'tsx') {
       templateFilename = TSX_TEMPLATE_FILENAME;
     }
   } else {
@@ -288,7 +288,7 @@ const createJSComponents = async (
 
       const iconComponentContents = await renderComponent(
         iconComponentData,
-        "JS"
+        'JS'
       );
 
       await writeComponentToFile(
@@ -320,7 +320,7 @@ const generateComponents = async (
   await mkdir(outputDir, { recursive: true });
 
   let iconComponentsData = null;
-  if (componentFormat === "css") {
+  if (componentFormat === 'css') {
     iconComponentsData = await createCSSComponents(
       iconNodesData,
       componentsOutputDir,
@@ -334,7 +334,7 @@ const generateComponents = async (
       componentFormat,
       isLogging
     );
-  } else if (componentFormat === "react") {
+  } else if (componentFormat === 'react') {
     if (templateFormats === null) {
       templateFormats = JS_DEFAULT_TEMPLATE_FORMAT;
     }

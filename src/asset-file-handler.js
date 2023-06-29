@@ -1,17 +1,17 @@
-import imagemin from "imagemin";
-import imageminJpegtran from "imagemin-jpegtran";
-import imageminOptipng from "imagemin-optipng";
-import imageminSvgo from "imagemin-svgo";
-import imageminZopfli from "imagemin-zopfli";
-import { copyFile, mkdir, writeFile } from "node:fs/promises";
-import { basename, dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import imagemin from 'imagemin';
+import imageminJpegtran from 'imagemin-jpegtran';
+import imageminOptipng from 'imagemin-optipng';
+import imageminSvgo from 'imagemin-svgo';
+import imageminZopfli from 'imagemin-zopfli';
+import { copyFile, mkdir, writeFile } from 'node:fs/promises';
+import { basename, dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { errorTxt } from "../src/logger.js";
+import { errorTxt } from '../src/logger.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const TEMPLATES_DIR = join(__dirname, "../templates");
-const LICENSE_FILENAME = "LICENSE.txt";
+const TEMPLATES_DIR = join(__dirname, '../templates');
+const LICENSE_FILENAME = 'LICENSE.txt';
 const DEFAULT_LICENSE_PATH = join(TEMPLATES_DIR, LICENSE_FILENAME);
 
 // Write Asset files to disk
@@ -20,13 +20,13 @@ const writeAssetDataToFile = async (iconsData, outputDir) => {
 
   return Promise.all(
     iconsData.map(async (nodeItem) => {
-      if (typeof nodeItem.jpg !== "undefined") {
+      if (typeof nodeItem.jpg !== 'undefined') {
         try {
-          await mkdir(join(outputDir, "jpg"), { recursive: true });
+          await mkdir(join(outputDir, 'jpg'), { recursive: true });
 
-          const filePath = outputDir + "/jpg/" + nodeItem.iconName + ".jpg";
+          const filePath = outputDir + '/jpg/' + nodeItem.iconName + '.jpg';
           await writeFile(filePath, Buffer.from(nodeItem.jpg), {
-            encoding: "utf8",
+            encoding: 'utf8',
           });
           nodeItem.jpgFilePath = filePath;
         } catch (err) {
@@ -37,13 +37,13 @@ const writeAssetDataToFile = async (iconsData, outputDir) => {
         }
       }
 
-      if (typeof nodeItem.png !== "undefined") {
+      if (typeof nodeItem.png !== 'undefined') {
         try {
-          await mkdir(join(outputDir, "png"), { recursive: true });
+          await mkdir(join(outputDir, 'png'), { recursive: true });
 
-          const filePath = outputDir + "/png/" + nodeItem.iconName + ".png";
+          const filePath = outputDir + '/png/' + nodeItem.iconName + '.png';
           await writeFile(filePath, Buffer.from(nodeItem.png), {
-            encoding: "utf8",
+            encoding: 'utf8',
           });
           nodeItem.pngFilePath = filePath;
         } catch (err) {
@@ -54,12 +54,12 @@ const writeAssetDataToFile = async (iconsData, outputDir) => {
         }
       }
 
-      if (typeof nodeItem.pdf !== "undefined") {
+      if (typeof nodeItem.pdf !== 'undefined') {
         try {
-          await mkdir(join(outputDir, "pdf"), { recursive: true });
+          await mkdir(join(outputDir, 'pdf'), { recursive: true });
 
-          const filePath = outputDir + "/pdf/" + nodeItem.iconName + ".pdf";
-          await writeFile(filePath, nodeItem.pdf, { encoding: "utf8" });
+          const filePath = outputDir + '/pdf/' + nodeItem.iconName + '.pdf';
+          await writeFile(filePath, nodeItem.pdf, { encoding: 'utf8' });
           nodeItem.pdfFilePath = filePath;
         } catch (err) {
           console.log(
@@ -69,12 +69,12 @@ const writeAssetDataToFile = async (iconsData, outputDir) => {
         }
       }
 
-      if (typeof nodeItem.svg !== "undefined") {
+      if (typeof nodeItem.svg !== 'undefined') {
         try {
-          await mkdir(join(outputDir, "svg"), { recursive: true });
+          await mkdir(join(outputDir, 'svg'), { recursive: true });
 
-          const filePath = outputDir + "/svg/" + nodeItem.iconName + ".svg";
-          await writeFile(filePath, nodeItem.svg, { encoding: "utf8" });
+          const filePath = outputDir + '/svg/' + nodeItem.iconName + '.svg';
+          await writeFile(filePath, nodeItem.svg, { encoding: 'utf8' });
           nodeItem.svgFilePath = filePath;
         } catch (err) {
           console.log(
@@ -92,10 +92,10 @@ const writeAssetDataToFile = async (iconsData, outputDir) => {
 // Optimize downloaded asset files
 const optimizeAssetFiles = async (outputDir, isLogging) => {
   if (isLogging) {
-    console.log("Optimizing asset files...");
+    console.log('Optimizing asset files...');
   }
 
-  return imagemin([join(outputDir, "*.{jpg,png,svg}")], {
+  return imagemin([join(outputDir, '*.{jpg,png,svg}')], {
     destination: outputDir,
     Plugins: [
       imageminJpegtran(),
@@ -145,11 +145,11 @@ const optimizeAssetFiles = async (outputDir, isLogging) => {
 
 const createLicense = async (licensePath, outputDir, isLogging) => {
   if (isLogging) {
-    console.log("Creating license file...");
+    console.log('Creating license file...');
   }
 
   const licenseFilePath =
-    licensePath === ""
+    licensePath === ''
       ? DEFAULT_LICENSE_PATH
       : resolve(process.cwd(), licensePath);
   const licenseFilename = basename(licenseFilePath);

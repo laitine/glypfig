@@ -1,47 +1,47 @@
-import "dotenv/config";
-import assert from "node:assert/strict";
-import { spawnSync } from "node:child_process";
-import { rmSync } from "node:fs";
-import { readdir, readFile } from "node:fs/promises";
-import { resolve } from "node:path";
-import { before, describe, it } from "node:test";
+import 'dotenv/config';
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { rmSync } from 'node:fs';
+import { readdir, readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { before, describe, it } from 'node:test';
 
-describe("Multiple with same name run", () => {
-  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), "icon-library");
+describe('Multiple with same name run', () => {
+  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_REACT_JSX_DIR = resolve(
     process.cwd(),
-    "icon-library/react/jsx"
+    'icon-library/react/jsx'
   );
   const JSX_ICON1_FILE_PATH = resolve(
     process.cwd(),
-    "icon-library/react/jsx/IconFamily1.jsx"
+    'icon-library/react/jsx/IconFamily1.jsx'
   );
   const JSX_ICON2_FILE_PATH = resolve(
     process.cwd(),
-    "icon-library/react/jsx/IconFamily2.jsx"
+    'icon-library/react/jsx/IconFamily2.jsx'
   );
   const JSX_INDEX_FILE_PATH = resolve(
     process.cwd(),
-    "icon-library/react/jsx/index.js"
+    'icon-library/react/jsx/index.js'
   );
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR, { recursive: true, force: true });
     const child = spawnSync(
-      "node",
+      'node',
       [
-        resolve(process.cwd(), "."),
-        "--apikey",
+        resolve(process.cwd(), '.'),
+        '--apikey',
         process.env.FIGMA_API_KEY,
-        "--filekey",
+        '--filekey',
         process.env.FIGMA_FILE_KEY,
-        "--nodeid",
+        '--nodeid',
         process.env.FIGMA_NODE_ID,
-        "--format",
-        "react",
+        '--format',
+        'react',
       ],
       {
-        encoding: "utf8",
+        encoding: 'utf8',
         shell: true,
       }
     );
@@ -50,36 +50,36 @@ describe("Multiple with same name run", () => {
     }
   });
 
-  it("Files with same name as numbered", async () => {
+  it('Files with same name as numbered', async () => {
     try {
       const reactFiles = await readdir(DEFAULT_REACT_JSX_DIR);
       assert.deepEqual(reactFiles, [
-        "IconCompany.jsx",
-        "IconEntrepreneur.jsx",
-        "IconFamily1.jsx",
-        "IconFamily2.jsx",
-        "IconMover.jsx",
-        "IconSenior.jsx",
-        "IconTraveler.jsx",
-        "IconYouth.jsx",
-        "index.js",
+        'IconCompany.jsx',
+        'IconEntrepreneur.jsx',
+        'IconFamily1.jsx',
+        'IconFamily2.jsx',
+        'IconMover.jsx',
+        'IconSenior.jsx',
+        'IconTraveler.jsx',
+        'IconYouth.jsx',
+        'index.js',
       ]);
     } catch (err) {
       console.error(err);
     }
   });
 
-  it("Component names are numbered", async () => {
-    const jsxChars1 = await readFile(JSX_ICON1_FILE_PATH, "utf8");
-    const jsxChars2 = await readFile(JSX_ICON2_FILE_PATH, "utf8");
+  it('Component names are numbered', async () => {
+    const jsxChars1 = await readFile(JSX_ICON1_FILE_PATH, 'utf8');
+    const jsxChars2 = await readFile(JSX_ICON2_FILE_PATH, 'utf8');
     const jsxSlug1 = jsxChars1.substring(94, 105);
     const jsxSlug2 = jsxChars2.substring(94, 105);
-    assert.equal(jsxSlug1, "IconFamily1");
-    assert.equal(jsxSlug2, "IconFamily2");
+    assert.equal(jsxSlug1, 'IconFamily1');
+    assert.equal(jsxSlug2, 'IconFamily2');
   });
 
-  it("File index names are numbered", async () => {
-    const exportChars = await readFile(JSX_INDEX_FILE_PATH, "utf8");
+  it('File index names are numbered', async () => {
+    const exportChars = await readFile(JSX_INDEX_FILE_PATH, 'utf8');
     const exportSlug1 = exportChars.substring(96, 138);
     const exportSlug2 = exportChars.substring(139, 181);
     assert.equal(exportSlug1, "export {IconFamily1} from './IconFamily1';");
@@ -87,43 +87,43 @@ describe("Multiple with same name run", () => {
   });
 });
 
-describe("Multiple with same name using property names run", () => {
-  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), "icon-library");
+describe('Multiple with same name using property names run', () => {
+  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_REACT_JSX_DIR = resolve(
     process.cwd(),
-    "icon-library/react/jsx"
+    'icon-library/react/jsx'
   );
   const JSX_ICON1_FILE_PATH = resolve(
     process.cwd(),
-    "icon-library/react/jsx/IconFamilyColorDefaultSizeLarge.jsx"
+    'icon-library/react/jsx/IconFamilyColorDefaultSizeLarge.jsx'
   );
   const JSX_ICON2_FILE_PATH = resolve(
     process.cwd(),
-    "icon-library/react/jsx/IconFamilyColorDefaultSizeRegular.jsx"
+    'icon-library/react/jsx/IconFamilyColorDefaultSizeRegular.jsx'
   );
   const JSX_INDEX_FILE_PATH = resolve(
     process.cwd(),
-    "icon-library/react/jsx/index.js"
+    'icon-library/react/jsx/index.js'
   );
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR, { recursive: true, force: true });
     const child = spawnSync(
-      "node",
+      'node',
       [
-        resolve(process.cwd(), "."),
-        "--apikey",
+        resolve(process.cwd(), '.'),
+        '--apikey',
         process.env.FIGMA_API_KEY,
-        "--filekey",
+        '--filekey',
         process.env.FIGMA_FILE_KEY,
-        "--nodeid",
+        '--nodeid',
         process.env.FIGMA_NODE_ID,
-        "--format",
-        "react",
-        "--propnames",
+        '--format',
+        'react',
+        '--propnames',
       ],
       {
-        encoding: "utf8",
+        encoding: 'utf8',
         shell: true,
       }
     );
@@ -132,77 +132,77 @@ describe("Multiple with same name using property names run", () => {
     }
   });
 
-  it("Outputs files with differential property names", async () => {
+  it('Outputs files with differential property names', async () => {
     try {
       const reactFiles = await readdir(DEFAULT_REACT_JSX_DIR);
       assert.deepEqual(reactFiles, [
-        "IconCompany.jsx",
-        "IconEntrepreneur.jsx",
-        "IconFamilyColorDefaultSizeLarge.jsx",
-        "IconFamilyColorDefaultSizeRegular.jsx",
-        "IconMover.jsx",
-        "IconSenior.jsx",
-        "IconTraveler.jsx",
-        "IconYouth.jsx",
-        "index.js",
+        'IconCompany.jsx',
+        'IconEntrepreneur.jsx',
+        'IconFamilyColorDefaultSizeLarge.jsx',
+        'IconFamilyColorDefaultSizeRegular.jsx',
+        'IconMover.jsx',
+        'IconSenior.jsx',
+        'IconTraveler.jsx',
+        'IconYouth.jsx',
+        'index.js',
       ]);
     } catch (err) {
       console.error(err);
     }
   });
 
-  it("Component names use property names", async () => {
-    const jsxChars1 = await readFile(JSX_ICON1_FILE_PATH, "utf8");
-    const jsxChars2 = await readFile(JSX_ICON2_FILE_PATH, "utf8");
+  it('Component names use property names', async () => {
+    const jsxChars1 = await readFile(JSX_ICON1_FILE_PATH, 'utf8');
+    const jsxChars2 = await readFile(JSX_ICON2_FILE_PATH, 'utf8');
     const jsxSlug1 = jsxChars1.substring(94, 125);
     const jsxSlug2 = jsxChars2.substring(94, 127);
-    assert.equal(jsxSlug1, "IconFamilyColorDefaultSizeLarge");
-    assert.equal(jsxSlug2, "IconFamilyColorDefaultSizeRegular");
+    assert.equal(jsxSlug1, 'IconFamilyColorDefaultSizeLarge');
+    assert.equal(jsxSlug2, 'IconFamilyColorDefaultSizeRegular');
   });
 
-  it("File index names use property names", async () => {
-    const exportChars = await readFile(JSX_INDEX_FILE_PATH, "utf8");
+  it('File index names use property names', async () => {
+    const exportChars = await readFile(JSX_INDEX_FILE_PATH, 'utf8');
     const exportSlug1 = exportChars.substring(96, 178);
     const exportSlug2 = exportChars.substring(179, 265);
     assert.equal(
       exportSlug1,
-      "export {IconFamilyColorDefaultSizeLarge} from " +
+      'export {IconFamilyColorDefaultSizeLarge} from ' +
         "'./IconFamilyColorDefaultSizeLarge';"
     );
     assert.equal(
       exportSlug2,
-      "export {IconFamilyColorDefaultSizeRegular} from " +
+      'export {IconFamilyColorDefaultSizeRegular} from ' +
         "'./IconFamilyColorDefaultSizeRegular';"
     );
   });
 });
 
-describe("Single filter output run", () => {
-  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), "icon-library");
+describe('Single filter output run', () => {
+  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_REACT_JSX_DIR = resolve(
     process.cwd(),
-    "icon-library/react/jsx"
+    'icon-library/react/jsx'
   );
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR, { recursive: true, force: true });
     const child = spawnSync(
-      "node",
+      'node',
       [
-        resolve(process.cwd(), "."),
-        "--apikey",
+        resolve(process.cwd(), '.'),
+        '--apikey',
         process.env.FIGMA_API_KEY,
-        "--filekey",
+        '--filekey',
         process.env.FIGMA_FILE_KEY,
-        "--nodeid",
+        '--nodeid',
         process.env.FIGMA_NODE_ID,
-        "--format",
-        "react",
-        "--filter",
-        "Color=Default",
+        '--format',
+        'react',
+        '--filter',
+        'Color=Default',
       ],
       {
-        encoding: "utf8",
+        encoding: 'utf8',
         shell: true,
       }
     );
@@ -211,13 +211,13 @@ describe("Single filter output run", () => {
     }
   });
 
-  it("Outputs only icons with one matching property", async () => {
+  it('Outputs only icons with one matching property', async () => {
     try {
       const reactFiles = await readdir(DEFAULT_REACT_JSX_DIR);
       assert.deepEqual(reactFiles, [
-        "IconFamily1.jsx",
-        "IconFamily2.jsx",
-        "index.js",
+        'IconFamily1.jsx',
+        'IconFamily2.jsx',
+        'index.js',
       ]);
     } catch (err) {
       console.error(err);
@@ -225,33 +225,33 @@ describe("Single filter output run", () => {
   });
 });
 
-describe("Single filter with property names output run", () => {
-  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), "icon-library");
+describe('Single filter with property names output run', () => {
+  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_REACT_JSX_DIR = resolve(
     process.cwd(),
-    "icon-library/react/jsx"
+    'icon-library/react/jsx'
   );
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR, { recursive: true, force: true });
     const child = spawnSync(
-      "node",
+      'node',
       [
-        resolve(process.cwd(), "."),
-        "--apikey",
+        resolve(process.cwd(), '.'),
+        '--apikey',
         process.env.FIGMA_API_KEY,
-        "--filekey",
+        '--filekey',
         process.env.FIGMA_FILE_KEY,
-        "--nodeid",
+        '--nodeid',
         process.env.FIGMA_NODE_ID,
-        "--format",
-        "react",
-        "--filter",
-        "Color=Default",
-        "--propnames",
+        '--format',
+        'react',
+        '--filter',
+        'Color=Default',
+        '--propnames',
       ],
       {
-        encoding: "utf8",
+        encoding: 'utf8',
         shell: true,
       }
     );
@@ -260,13 +260,13 @@ describe("Single filter with property names output run", () => {
     }
   });
 
-  it("Outputs only icons with one matching property using property names", async () => {
+  it('Outputs only icons with one matching property using property names', async () => {
     try {
       const reactFiles = await readdir(DEFAULT_REACT_JSX_DIR);
       assert.deepEqual(reactFiles, [
-        "IconFamilyColorDefaultSizeLarge.jsx",
-        "IconFamilyColorDefaultSizeRegular.jsx",
-        "index.js",
+        'IconFamilyColorDefaultSizeLarge.jsx',
+        'IconFamilyColorDefaultSizeRegular.jsx',
+        'index.js',
       ]);
     } catch (err) {
       console.error(err);
@@ -274,32 +274,32 @@ describe("Single filter with property names output run", () => {
   });
 });
 
-describe("Multiple filter output run", () => {
-  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), "icon-library");
+describe('Multiple filter output run', () => {
+  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_REACT_JSX_DIR = resolve(
     process.cwd(),
-    "icon-library/react/jsx"
+    'icon-library/react/jsx'
   );
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR, { recursive: true, force: true });
     const child = spawnSync(
-      "node",
+      'node',
       [
-        resolve(process.cwd(), "."),
-        "--apikey",
+        resolve(process.cwd(), '.'),
+        '--apikey',
         process.env.FIGMA_API_KEY,
-        "--filekey",
+        '--filekey',
         process.env.FIGMA_FILE_KEY,
-        "--nodeid",
+        '--nodeid',
         process.env.FIGMA_NODE_ID,
-        "--format",
-        "react",
-        "--filter",
-        "Color=Default,Size=Regular",
+        '--format',
+        'react',
+        '--filter',
+        'Color=Default,Size=Regular',
       ],
       {
-        encoding: "utf8",
+        encoding: 'utf8',
         shell: true,
       }
     );
@@ -308,43 +308,43 @@ describe("Multiple filter output run", () => {
     }
   });
 
-  it("Outputs only icons matching two properties", async () => {
+  it('Outputs only icons matching two properties', async () => {
     try {
       const reactFiles = await readdir(DEFAULT_REACT_JSX_DIR);
-      assert.deepEqual(reactFiles, ["IconFamily.jsx", "index.js"]);
+      assert.deepEqual(reactFiles, ['IconFamily.jsx', 'index.js']);
     } catch (err) {
       console.error(err);
     }
   });
 });
 
-describe("Multiple filter with property names output run", () => {
-  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), "icon-library");
+describe('Multiple filter with property names output run', () => {
+  const DEFAULT_OUTPUT_DIR = resolve(process.cwd(), 'icon-library');
   const DEFAULT_REACT_JSX_DIR = resolve(
     process.cwd(),
-    "icon-library/react/jsx"
+    'icon-library/react/jsx'
   );
 
   before(() => {
     rmSync(DEFAULT_OUTPUT_DIR, { recursive: true, force: true });
     const child = spawnSync(
-      "node",
+      'node',
       [
-        resolve(process.cwd(), "."),
-        "--apikey",
+        resolve(process.cwd(), '.'),
+        '--apikey',
         process.env.FIGMA_API_KEY,
-        "--filekey",
+        '--filekey',
         process.env.FIGMA_FILE_KEY,
-        "--nodeid",
+        '--nodeid',
         process.env.FIGMA_NODE_ID,
-        "--format",
-        "react",
-        "--filter",
-        "Color=Default,Size=Regular",
-        "--propnames",
+        '--format',
+        'react',
+        '--filter',
+        'Color=Default,Size=Regular',
+        '--propnames',
       ],
       {
-        encoding: "utf8",
+        encoding: 'utf8',
         shell: true,
       }
     );
@@ -354,13 +354,13 @@ describe("Multiple filter with property names output run", () => {
   });
 
   it(
-    "Outputs only icons with two matching properties using " + "property names",
+    'Outputs only icons with two matching properties using ' + 'property names',
     async () => {
       try {
         const reactFiles = await readdir(DEFAULT_REACT_JSX_DIR);
         assert.deepEqual(reactFiles, [
-          "IconFamilyColorDefaultSizeRegular.jsx",
-          "index.js",
+          'IconFamilyColorDefaultSizeRegular.jsx',
+          'index.js',
         ]);
       } catch (err) {
         console.error(err);
