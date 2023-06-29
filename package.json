@@ -36,6 +36,7 @@
   },
   "man": "./man/doc.1",
   "scripts": {
+    "build": "export $(grep -v '^#' .env | tr -d '\"' | xargs -0) && node . -a $FIGMA_API_KEY -k $FIGMA_FILE_KEY -n $FIGMA_NODE_ID -f jpg,pdf,png,svg,css,react -p -t jsx,tsx -l '' -b 2.66 -d 2.66",
     "lint": "yarn lint:cli && yarn lint:build && yarn lint:tests",
     "lint:cli": "yarn prettier --write ./src/*.js && eslint --fix ./src/*.js",
     "lint:js": "yarn prettier --write ./icon-library/react/*/*.{jsx,js,tsx,ts} && eslint --fix ./icon-library/react/*/*.{jsx,js,tsx,ts}",
