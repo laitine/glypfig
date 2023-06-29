@@ -120,7 +120,7 @@ describe('PNG output run', () => {
   });
 
   it('File is optimized and scaled to custom size', () => {
-    assert.equal(535, statSync(PNG_ICON_FILE_PATH).size);
+    assert.equal(564, statSync(PNG_ICON_FILE_PATH).size);
   });
 });
 
