@@ -15,7 +15,9 @@ function <%= it.componentJSName %>({
       className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
       role="img"
       xmlns="http://www.w3.org/2000/svg"
+      <% if (it.componentSVGAttributes.viewBox) { _%>
       viewBox="<%= it.componentSVGAttributes.viewBox %>"
+      <% } _%>
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       aria-hidden={ariaHidden}
